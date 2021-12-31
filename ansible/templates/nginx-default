@@ -1,0 +1,31 @@
+server_names_hash_bucket_size 128;
+
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	server_name _;
+	root /flurydotorg/htdocs;
+	index index.html;
+	error_page 404 /404.html;
+}
+
+server {
+	listen 80;
+	listen [::]:80;
+	server_name linkedin.{{domain}};
+	root /flurydotorg/htdocs;
+	error_page 301 /linkedin-301.html;
+	error_page 404 /404.html;
+	location = / {
+		return 301 https://www.linkedin.com/in/andrew-flury-47815a/;
+	}
+}
+
+server {
+	listen 80;
+	listen [::]:80;
+	server_name resume.{{domain}};
+	root /flurydotorg/htdocs;
+	index resume.pdf;
+	error_page 404 /404.html;
+}

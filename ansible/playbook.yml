@@ -1,0 +1,63 @@
+---
+- hosts: servers
+  tasks:
+    - name: "create user aflury"
+      user: name=aflury state=present groups=sudo,adm shell=/bin/bash
+
+    - name: "authorize users' keys"
+      when: not ansible_check_mode
+      authorized_key:
+        user: "aflury"
+        key:  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC//Na8214PocSDUqUaQAKfaB1jfVW6ic4CFmx6y+RMVY8bSvTcS1CY84siQDGdGOPfCKiNe3HI71SODZI2e1Mh1VmCaVDsS7rCsF93PRxou7Ub1RJNk5rOQHwFV4wl2KW+VEWuM72oXP8Dn6WRz5li41eCqrU807NG9yUoUYHAEx62YSIUt+yzyZ0KRX7Jos4YP1MQPn2VrZQSYFyuqB0JXZJ2ROI7kbw2BMOXsZIJnsd62NWbd7vwKpYrua2KOd42slf1n4qoo/AIqLhr9B2I4EATu89ODRQcDsDmP5f88Vhul+tcXEJc1ggvGu4U/qdME8YgrItwe7ZAWJb0R5Zaar8oC+M/krNqOBheKJpr+xyNcTKRQ6sw4e4RQeewLQ/ycdb8TRwbdGq+DoX2UppT0ewOuhWsMSbJsuOEGotEcQCF3GgPq3RlkIu4EmhUrIXTxUroHtyPmjuV8lNgqkfGQNcIkbd/U6c/yl8UeE+dPYFvlLpNX2LJf3Y0YdbUXz/syc387oU2V5SOBG9DXNSCx8M3+NZECvYq0/ovQfwQI4RpL9LEmH8OTLEu0/HoXpqWgvuISiOo8iKOkAbdfUm6NBrUY2PFM/NxsCobRnBaXGnu/wa5X5hgoU4e9BX3F4mJ7jZIQfcW76ndXG8DrUDfiq29+sd5aFNxZ7G9Zu+2qQ== aflury"
+
+    - name: "install packages"
+      apt: name={{item}} update_cache=yes cache_valid_time=86400
+      with_items:
+        - nginx
+        - python3-apt
+
+    - name: "sudoers"
+      copy:
+        src=sudoers
+        dest=/etc/sudoers
+        mode=0440
+        owner=root
+        group=root
+
+    - name: "create htdocs"
+      file:
+        path: /flurydotorg/htdocs
+        state: directory
+        mode: 0755
+
+    - name: "deploy htdocs"
+      template:
+        src=htdocs/{{item}}
+        dest=/flurydotorg/htdocs/{{item}}
+        mode=0644
+        owner=root
+        group=root
+      with_items:
+        - 404.html
+        - index.html
+        - linkedin-301.html
+        - robots.txt
+
+    - name: "publish resume"
+      copy:
+        src={{resume_file}}
+        dest=/flurydotorg/htdocs/resume.pdf
+        mode=0644
+        owner=root
+        group=root
+ 
+    - name: "nginx site config"
+      template:
+        src=nginx-default
+        dest=/etc/nginx/sites-available/default
+      notify: reload nginx
+
+  handlers:
+    - name: reload nginx
+      service: name=nginx state=reloaded
+      when: not ansible_check_mode

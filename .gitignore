@@ -1,0 +1,5 @@
+ssh-key
+config.sh
+.idea
+.terraform
+.terraform.lock.hcl
