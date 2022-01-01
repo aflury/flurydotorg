@@ -8,7 +8,7 @@ terraform {
       version = "~> 3.0"
     }
   }
-  required_version = "=1.0.6"
+  required_version = "=1.1.2"
 
   backend "s3" {
     bucket = "flurydotorg-tfstate"
