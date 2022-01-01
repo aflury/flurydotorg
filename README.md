@@ -31,10 +31,11 @@ first:
 
 ```bash
 cd terraformm
-terraform init
+SYMBOLIC_NAME=flury-org  # This is set in `config.sh`
 # Ignore if this bucket has already been created:
-aws s3 mb s3://flurydotorg-tfstate
-terraform import aws_s3_bucket.flurydotorg-tfstate flurydotorg-tfstate
+aws s3 mb s3://$SYMBOLIC_NAME-tfstate
+terraform init -backend-config=bucket=$SYMBOLIC_NAME-tfstate
+terraform import aws_s3_bucket.flurydotorg-tfstate $SYMBOLIC_NAME-tfstate
 ```
 
 ### Deploying
@@ -60,7 +61,7 @@ export AWS_PROFILE=personal
 export CLOUDFLARE_EMAIL=andrew+cloudflare@fldontspammeury.org
 export CLOUDFLARE_API_TOKEN=VE6ohnoyoudidnt
 export DOMAIN=flury.org
-export O365_ORG=flury-org
+export SYMBOLIC_NAME=flury-org
 export DMARC_CNAME=_dmarc.bf.17.94.02.dns.agari.com
 export RESUME_FILE=/Users/aflury/Documents/Resume-Andrew-Flury.pdf
 |03:12:25|aflury@aflury:[flurydotorg]> ./deploy.sh 

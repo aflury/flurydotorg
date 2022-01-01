@@ -1,6 +1,6 @@
 variable "aws_region" {
   description = "AWS region"
-  default = "us-west-2"
+  default     = "us-west-2"
 }
 
 variable "aws_account_id" {
@@ -40,6 +40,6 @@ variable "dmarc_cname" {
   description = "Value of DMARC CNAME DNS record"
 }
 
-variable "o365_org" {
+variable "symbolic_name" {
   description = "Symbolic name of Microsoft Office365 organization. e.g. `flury-org`"
 }

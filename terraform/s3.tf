@@ -1,5 +1,5 @@
 resource aws_s3_bucket "flurydotorg-tfstate" {
-  bucket = "flurydotorg-tfstate"
+  bucket = "${var.symbolic_name}-tfstate"
   tags   = {}
   server_side_encryption_configuration {
     rule {
@@ -11,7 +11,7 @@ resource aws_s3_bucket "flurydotorg-tfstate" {
 }
 
 resource aws_s3_bucket "flurydotorg_logs" {
-  bucket        = "flurydotorg-logs"
+  bucket        = "${var.symbolic_name}-logs"
   tags          = {}
 
   server_side_encryption_configuration {
@@ -37,7 +37,7 @@ resource aws_s3_bucket "flurydotorg_logs" {
         "s3:PutObject"
       ],
       "Effect": "Allow",
-      "Resource": "arn:aws:s3:::flurydotorg-logs/*",
+      "Resource": "arn:aws:s3:::${var.symbolic_name}-logs/*",
       "Principal": {
         "AWS": [
           "797873946194"
@@ -50,7 +50,7 @@ resource aws_s3_bucket "flurydotorg_logs" {
         "Service": "delivery.logs.amazonaws.com"
       },
       "Action": "s3:PutObject",
-      "Resource": "arn:aws:s3:::flurydotorg-logs/*",
+      "Resource": "arn:aws:s3:::${var.symbolic_name}-logs/*",
       "Condition": {
         "StringEquals": {
           "s3:x-amz-acl": "bucket-owner-full-control"
@@ -63,14 +63,9 @@ resource aws_s3_bucket "flurydotorg_logs" {
         "Service": "delivery.logs.amazonaws.com"
       },
       "Action": "s3:GetBucketAcl",
-      "Resource": "arn:aws:s3:::flurydotorg-logs"
+      "Resource": "arn:aws:s3:::${var.symbolic_name}-logs"
     }
   ]
 }
 EOF
-}
-
-resource "aws_s3_bucket" "flurydotorg_resume" {
-  bucket        = "flurydotorg-resume"
-  tags          = {}
 }

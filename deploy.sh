@@ -26,7 +26,7 @@ export TF_VAR_cloudflare_api_token=$CLOUDFLARE_API_TOKEN
 export TF_VAR_cloudflare_email=$CLOUDFLARE_EMAIL
 export TF_VAR_domain=$DOMAIN
 export TF_VAR_dmarc_cname=$DMARC_CNAME
-export TF_VAR_o365_org=$O365_ORG
+export TF_VAR_symbolic_name=$SYMBOLIC_NAME
 export TF_VAR_aws_account_id=`aws iam get-user --output text | awk '{print $2}' | awk -F: '{print $5}'`
 
 cd terraform 

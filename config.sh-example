@@ -2,6 +2,6 @@ export AWS_PROFILE=myawsprofile
 export CLOUDFLARE_EMAIL=someone+cloudflare@example.net
 export CLOUDFLARE_API_TOKEN=asdasdda
 export DOMAIN=example.net
-export O365_ORG=example-net
+export SYMBOLIC_NAME=example-net
 export DMARC_CNAME=nonexistent.example.net
 export RESUME_FILE=/Users/user/Documents/resume.pdf

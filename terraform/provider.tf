@@ -11,7 +11,7 @@ terraform {
   required_version = "=1.1.2"
 
   backend "s3" {
-    bucket = "flurydotorg-tfstate"
+    # bucket is set by `terraform init`.
     key    = "terraform.tfstate"
   }
 }

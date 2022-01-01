@@ -61,7 +61,7 @@ resource "cloudflare_record" "address" {
 resource "cloudflare_record" "mx" {
   zone_id  = cloudflare_zone.flurydotorg.id
   name     = "${var.domain}."
-  value    = "${var.o365_org}.mail.protection.outlook.com"
+  value    = "${var.symbolic_name}.mail.protection.outlook.com"
   type     = "MX"
   priority = 10
   proxied  = false
@@ -80,7 +80,7 @@ resource "cloudflare_record" "autodiscover" {
 resource "cloudflare_record" "selector1" {
   zone_id = cloudflare_zone.flurydotorg.id
   name    = "selector1._domainkey"
-  value   = "selector1-${var.o365_org}._domainkey.flurydotorg.onmicrosoft.com"
+  value   = "selector1-${var.symbolic_name}._domainkey.flurydotorg.onmicrosoft.com"
   type    = "CNAME"
   proxied = false
   ttl     = 300
@@ -89,7 +89,7 @@ resource "cloudflare_record" "selector1" {
 resource "cloudflare_record" "selector2" {
   zone_id = cloudflare_zone.flurydotorg.id
   name    = "selector2._domainkey"
-  value   = "selector2-${var.o365_org}._domainkey.flurydotorg.onmicrosoft.com"
+  value   = "selector2-${var.symbolic_name}._domainkey.flurydotorg.onmicrosoft.com"
   type    = "CNAME"
   proxied = false
   ttl     = 300

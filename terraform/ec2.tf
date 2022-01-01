@@ -61,7 +61,7 @@ resource "aws_instance" "flurydotorg" {
   vpc_security_group_ids = [aws_security_group.flurydotorg.id]
   hibernation            = false
   tags = {
-    Name = "flurydotorg.com webserver"
+    Name = "${var.symbolic_name} webserver"
   }
 }
 
