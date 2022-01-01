@@ -24,7 +24,7 @@ server {
 server {
 	listen 80;
 	listen [::]:80;
-	server_name resume.{{domain}};
+	server_name resume.{{domain}} xn--rsum-bpad.{{domain}};
 	root /flurydotorg/htdocs;
 	index resume.pdf;
 	error_page 404 /404.html;

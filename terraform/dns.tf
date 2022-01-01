@@ -38,6 +38,15 @@ resource "cloudflare_record" "resume" {
   ttl     = 1
 }
 
+resource "cloudflare_record" "resume_" {
+  zone_id = cloudflare_zone.flurydotorg.id
+  name    = "xn--rsum-bpad"
+  value   = "${var.domain}"
+  type    = "CNAME"
+  proxied = true
+  ttl     = 1
+}
+
 resource "cloudflare_record" "address" {
   zone_id = cloudflare_zone.flurydotorg.id
   name    = "ec2"
