@@ -5,7 +5,6 @@ variable "aws_region" {
 
 variable "aws_account_id" {
   description = "AWS account ID"
-  default     = "020963292585"
 }
 
 variable "flurydotorg_vpc" {
