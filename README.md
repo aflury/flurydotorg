@@ -17,7 +17,7 @@ It looks more sensitive than it is though. I think.
 
 ## Prerequisites
 
-- terraform 1.0.6: https://www.terraform.io/downloads.html or via homebrew etc.
+- terraform 1.1.2: https://www.terraform.io/downloads.html or via homebrew etc.
 - ansible-playbook: `pip install ansible`.
 - ssh private key.
 - `config.sh`; create based off example file.
