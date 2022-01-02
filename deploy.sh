@@ -52,7 +52,14 @@ trap cleanup_hosts EXIT
 echo '[servers]'  > $hosts
 echo $ec2_ip     >> $hosts
 
-playbook="ansible-playbook -b --key-file `pwd`/ssh-key -u ubuntu -i $hosts --extra-vars \"resume_file='$RESUME_FILE' domain='$DOMAIN'\" ansible/playbook.yml"
+playbook="ansible-playbook \
+ -b \
+ --key-file `pwd`/ssh-key \
+ -u ubuntu \
+ -i $hosts \
+ --extra-vars \"resume_file='$RESUME_FILE' resume_base='`basename $RESUME_FILE`' domain='$DOMAIN'\" \
+ ansible/playbook.yml \
+"
 echo $playbook
 
 # Run in check mode first.

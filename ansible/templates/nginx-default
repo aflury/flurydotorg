@@ -28,4 +28,7 @@ server {
 	root /flurydotorg/htdocs;
 	index resume.pdf;
 	error_page 404 /404.html;
+	location / {
+		add_header Content-Disposition 'filename="{{resume_base}}"';
+	}
 }
