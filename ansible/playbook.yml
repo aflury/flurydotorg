@@ -30,7 +30,17 @@
         state: directory
         mode: 0755
 
-    - name: "deploy htdocs"
+    - name: "deploy htdocs files"
+      copy:
+        src=htdocs/{{item}}
+        dest=/flurydotorg/htdocs/{{item}}
+        mode=0644
+        owner=root
+        group=root
+      with_items:
+        - favicon.ico
+
+    - name: "deploy htdocs templates"
       template:
         src=htdocs/{{item}}
         dest=/flurydotorg/htdocs/{{item}}
