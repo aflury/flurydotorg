@@ -9,6 +9,22 @@ set -e  # fail on errors
 
 . config.sh
 
+force=0
+while [ $# -gt 0 ]
+do
+  case "$1" in
+    -f|--force)
+      force=1
+      shift
+    ;;
+    *)
+      echo "Invalid argument: $1"
+      echo "Usage: $0 [-f|--force]"
+      exit 1
+    ;;
+  esac
+done
+
 if [ -z "$RESUME_FILE" ]
 then
   echo "Specify resume file in config.sh"
@@ -30,6 +46,8 @@ export TF_VAR_symbolic_name=$SYMBOLIC_NAME
 export TF_VAR_aws_account_id=`aws iam get-user --output text | awk '{print $2}' | awk -F: '{print $5}'`
 
 cd terraform 
+terraform="terraform apply"
+[ "$force" == "1" ] && terraform="$terraform -auto-approve"
 terraform apply
 # We only need the public IP address to avoid waiting for ec2.$domain's address record to update.
 ec2_ip=`terraform show | awk '$1 ~ /public_ip/ && $3 ~ /[0-9]+\./ {print $3}' | sed -e 's/"//g'`
@@ -60,19 +78,20 @@ playbook="ansible-playbook \
  --extra-vars \"resume_file='$RESUME_FILE' resume_base='`basename $RESUME_FILE`' domain='$DOMAIN'\" \
  ansible/playbook.yml \
 "
-echo $playbook
 
 # Run in check mode first.
-bash -c "$playbook -CD"
-
-echo
-echo
-read -p "Does everything look OK? y/n " yesno
-if [ "$yesno" = "y" ]
+if [ "$force" != 1 ]
 then
-  # Run ansible for real!
-  bash -c "$playbook"
-else
-  echo 'Abort!'
-  exit 1
+  bash -c "$playbook -CD"
+  echo
+  echo
+  read -p "Does everything look OK? y/n " yesno
+  if [ "$yesno" != "y" ]
+  then
+    echo 'Abort!'
+    exit 1
+  fi
 fi
+
+# Run ansible for real!
+bash -cx "$playbook"
