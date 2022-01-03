@@ -65,8 +65,6 @@ resource "cloudflare_record" "address" {
   ttl     = 300
 }
 
-# TODO: make all the O365 DNS settings configurable?
-# maybe automatically generate with domain ~ s/\./-/ and assume the same pattern?
 resource "cloudflare_record" "mx" {
   zone_id  = cloudflare_zone.flurydotorg.id
   name     = "${var.domain}."
