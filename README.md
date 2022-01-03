@@ -56,18 +56,25 @@ PLAY RECAP *********************************************************************
   </summary>
 
 ```
-|03:12:12|aflury@aflury:[flurydotorg]> cat config.sh
+|22:39:30|aflury@aflury:[flurydotorg]> cat config.sh
 export AWS_PROFILE=personal
-export CLOUDFLARE_EMAIL=andrew+cloudflare@fldontspammeury.org
-export CLOUDFLARE_API_TOKEN=VE6ohnoyoudidnt
+export CLOUDFLARE_EMAIL=andrew+cloudflare@flunospamry.org
+export CLOUDFLARE_API_TOKEN=VEohnoyoudidnt
 export DOMAIN=flury.org
 export SYMBOLIC_NAME=flury-org
 export DMARC_CNAME=_dmarc.bf.17.94.02.dns.agari.com
 export RESUME_FILE=/Users/aflury/Documents/Resume-Andrew-Flury.pdf
-|03:12:25|aflury@aflury:[flurydotorg]> ./deploy.sh 
-aws_s3_bucket.flurydotorg_resume: Refreshing state... [id=flurydotorg-resume]
-aws_s3_bucket.flurydotorg-tfstate: Refreshing state... [id=flurydotorg-tfstate]
-aws_s3_bucket.flurydotorg_logs: Refreshing state... [id=flurydotorg-logs]
+export LINKEDIN_PROFILE=andrew-flury-47815a
+|22:39:33|aflury@aflury:[flurydotorg]> ./deploy.sh 
+
+**************************************************
+**
+**  Running terraform apply
+**
+**************************************************
+
+aws_s3_bucket.flurydotorg-tfstate: Refreshing state... [id=flury-org-tfstate]
+aws_s3_bucket.flurydotorg_logs: Refreshing state... [id=flury-org-logs]
 
 Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
   + create
@@ -92,6 +99,12 @@ Terraform will perform the following actions:
               + resource_record_value = (known after apply)
             },
           + {
+              + domain_name           = "message.flury.org"
+              + resource_record_name  = (known after apply)
+              + resource_record_type  = (known after apply)
+              + resource_record_value = (known after apply)
+            },
+          + {
               + domain_name           = "resume.flury.org"
               + resource_record_name  = (known after apply)
               + resource_record_type  = (known after apply)
@@ -103,13 +116,21 @@ Terraform will perform the following actions:
               + resource_record_type  = (known after apply)
               + resource_record_value = (known after apply)
             },
+          + {
+              + domain_name           = "xn--rsum-bpad.flury.org"
+              + resource_record_name  = (known after apply)
+              + resource_record_type  = (known after apply)
+              + resource_record_value = (known after apply)
+            },
         ]
       + id                        = (known after apply)
       + status                    = (known after apply)
       + subject_alternative_names = [
           + "linkedin.flury.org",
+          + "message.flury.org",
           + "resume.flury.org",
           + "www.flury.org",
+          + "xn--rsum-bpad.flury.org",
         ]
       + tags_all                  = (known after apply)
       + validation_emails         = (known after apply)
@@ -158,10 +179,10 @@ Terraform will perform the following actions:
       + source_dest_check                    = true
       + subnet_id                            = "subnet-23602f45"
       + tags                                 = {
-          + "Name" = "flurydotorg.com webserver"
+          + "Name" = "flury-org webserver"
         }
       + tags_all                             = {
-          + "Name" = "flurydotorg.com webserver"
+          + "Name" = "flury-org webserver"
         }
       + tenancy                              = (known after apply)
       + user_data                            = (known after apply)
@@ -264,7 +285,7 @@ Terraform will perform the following actions:
       + zone_id                    = (known after apply)
 
       + access_logs {
-          + bucket  = "flurydotorg-logs"
+          + bucket  = "flury-org-logs"
           + enabled = true
           + prefix  = "flurydotorg-lb"
         }
@@ -530,6 +551,23 @@ Terraform will perform the following actions:
       + zone_id         = (known after apply)
     }
 
+  # cloudflare_record.message will be created
+  + resource "cloudflare_record" "message" {
+      + allow_overwrite = false
+      + created_on      = (known after apply)
+      + hostname        = (known after apply)
+      + id              = (known after apply)
+      + metadata        = (known after apply)
+      + modified_on     = (known after apply)
+      + name            = "message"
+      + proxiable       = (known after apply)
+      + proxied         = true
+      + ttl             = 1
+      + type            = "CNAME"
+      + value           = "flury.org"
+      + zone_id         = (known after apply)
+    }
+
   # cloudflare_record.mx will be created
   + resource "cloudflare_record" "mx" {
       + allow_overwrite = false
@@ -557,6 +595,23 @@ Terraform will perform the following actions:
       + metadata        = (known after apply)
       + modified_on     = (known after apply)
       + name            = "resume"
+      + proxiable       = (known after apply)
+      + proxied         = true
+      + ttl             = 1
+      + type            = "CNAME"
+      + value           = "flury.org"
+      + zone_id         = (known after apply)
+    }
+
+  # cloudflare_record.resume_ will be created
+  + resource "cloudflare_record" "resume_" {
+      + allow_overwrite = false
+      + created_on      = (known after apply)
+      + hostname        = (known after apply)
+      + id              = (known after apply)
+      + metadata        = (known after apply)
+      + modified_on     = (known after apply)
+      + name            = "xn--rsum-bpad"
       + proxiable       = (known after apply)
       + proxied         = true
       + ttl             = 1
@@ -648,6 +703,22 @@ Terraform will perform the following actions:
       + zone_id         = (known after apply)
     }
 
+  # cloudflare_record.validate_tls["message.flury.org"] will be created
+  + resource "cloudflare_record" "validate_tls" {
+      + allow_overwrite = true
+      + created_on      = (known after apply)
+      + hostname        = (known after apply)
+      + id              = (known after apply)
+      + metadata        = (known after apply)
+      + modified_on     = (known after apply)
+      + name            = (known after apply)
+      + proxiable       = (known after apply)
+      + ttl             = 60
+      + type            = (known after apply)
+      + value           = (known after apply)
+      + zone_id         = (known after apply)
+    }
+
   # cloudflare_record.validate_tls["resume.flury.org"] will be created
   + resource "cloudflare_record" "validate_tls" {
       + allow_overwrite = true
@@ -665,6 +736,22 @@ Terraform will perform the following actions:
     }
 
   # cloudflare_record.validate_tls["www.flury.org"] will be created
+  + resource "cloudflare_record" "validate_tls" {
+      + allow_overwrite = true
+      + created_on      = (known after apply)
+      + hostname        = (known after apply)
+      + id              = (known after apply)
+      + metadata        = (known after apply)
+      + modified_on     = (known after apply)
+      + name            = (known after apply)
+      + proxiable       = (known after apply)
+      + ttl             = 60
+      + type            = (known after apply)
+      + value           = (known after apply)
+      + zone_id         = (known after apply)
+    }
+
+  # cloudflare_record.validate_tls["xn--rsum-bpad.flury.org"] will be created
   + resource "cloudflare_record" "validate_tls" {
       + allow_overwrite = true
       + created_on      = (known after apply)
@@ -710,7 +797,7 @@ Terraform will perform the following actions:
       + zone                = "flury.org"
     }
 
-Plan: 31 to add, 0 to change, 0 to destroy.
+Plan: 35 to add, 0 to change, 0 to destroy.
 
 Do you want to perform these actions?
   Terraform will perform the actions described above.
@@ -719,74 +806,82 @@ Do you want to perform these actions?
   Enter a value: yes
 
 cloudflare_zone.flurydotorg: Creating...
-aws_security_group.flurydotorg_lb: Creating...
+aws_key_pair.flurydotorg-ssh: Creating...
 aws_security_group.flurydotorg: Creating...
+aws_security_group.flurydotorg_lb: Creating...
 aws_lb_target_group.flurydotorg: Creating...
 aws_acm_certificate.flurydotorg: Creating...
-aws_key_pair.flurydotorg-ssh: Creating...
 cloudflare_zone.flurydotorg: Creation complete after 2s [id=aaa37b82133deae64fc7a3c76ad95896]
+cloudflare_record.selector1: Creating...
+cloudflare_record.autodiscover: Creating...
 cloudflare_record.selector2: Creating...
 cloudflare_record.spf: Creating...
-cloudflare_record.linkedin: Creating...
-cloudflare_record.autodiscover: Creating...
-cloudflare_record.resume: Creating...
-aws_key_pair.flurydotorg-ssh: Creation complete after 0s [id=flurydotorg-ssh]
-cloudflare_record.dmarc: Creating...
-aws_security_group.flurydotorg_lb: Creation complete after 2s [id=sg-0f91d3c469f7f4861]
 cloudflare_record.www: Creating...
-aws_security_group.flurydotorg: Creation complete after 2s [id=sg-0a24d6aea5a554247]
+aws_key_pair.flurydotorg-ssh: Creation complete after 1s [id=flurydotorg-ssh]
+cloudflare_record.linkedin: Creating...
+aws_security_group.flurydotorg_lb: Creation complete after 3s [id=sg-051beca8710b89480]
 cloudflare_record.mx: Creating...
-cloudflare_record.mx: Creation complete after 3s [id=0bd4a4c0054182c3cabedac01c6b54a5]
-cloudflare_record.selector1: Creating...
-aws_acm_certificate.flurydotorg: Creation complete after 8s [id=arn:aws:acm:us-west-2:020963292585:certificate/b2cd6699-2ddc-48a8-a51a-c844b34a8c49]
-aws_security_group_rule.lb_allow_inbound_https: Creating...
-aws_security_group_rule.lb_allow_inbound_https: Creation complete after 1s [id=sgrule-2705502514]
-aws_lb.flurydotorg: Creating...
+aws_security_group.flurydotorg: Creation complete after 3s [id=sg-046aa7e825ecebd8c]
+cloudflare_record.message: Creating...
+cloudflare_record.autodiscover: Creation complete after 5s [id=9747cb4fe31e863b6f6ecf262a143767]
+cloudflare_record.resume_: Creating...
+cloudflare_record.selector1: Creation complete after 5s [id=66d61dabef39d370fb78695a662922ae]
+cloudflare_record.dmarc: Creating...
+cloudflare_record.www: Creation complete after 5s [id=2b3d56a8ddd88b0e34a27c4ea5914b1e]
+cloudflare_record.resume: Creating...
 aws_lb_target_group.flurydotorg: Still creating... [10s elapsed]
-cloudflare_record.linkedin: Still creating... [10s elapsed]
+aws_acm_certificate.flurydotorg: Still creating... [10s elapsed]
 cloudflare_record.spf: Still creating... [10s elapsed]
 cloudflare_record.selector2: Still creating... [10s elapsed]
-cloudflare_record.autodiscover: Still creating... [10s elapsed]
-cloudflare_record.resume: Still creating... [10s elapsed]
-cloudflare_record.dmarc: Still creating... [10s elapsed]
-cloudflare_record.www: Creation complete after 8s [id=81329ba6bad929770d6f0e72bd2105b1]
-cloudflare_record.dmarc: Creation complete after 10s [id=91e87107f1d9d68180b66bd2ac6fd81f]
-cloudflare_record.spf: Creation complete after 10s [id=e85b6881919d56ffdac8d24db48a63b7]
+cloudflare_record.linkedin: Still creating... [10s elapsed]
+cloudflare_record.mx: Creation complete after 9s [id=1e89c39e9cdf6ddbbaf816ff4bdfcca1]
+aws_security_group_rule.lb_allow_inbound_https: Creating...
+cloudflare_record.selector2: Creation complete after 11s [id=a0872dce64f9de268c6ffe092810106b]
 aws_security_group_rule.lb_allow_outbound: Creating...
-aws_security_group_rule.allow_inbound_ssh: Creating...
+aws_lb_target_group.flurydotorg: Creation complete after 12s [id=arn:aws:elasticloadbalancing:us-west-2:020963292585:targetgroup/flurydotorg/5e91587969ade84a]
+aws_lb.flurydotorg: Creating...
+cloudflare_record.linkedin: Creation complete after 11s [id=e2768a484a47adfbcb313f9224ba883d]
 aws_security_group_rule.allow_outbound: Creating...
-cloudflare_record.linkedin: Creation complete after 10s [id=287f9dcab97b23624b3e81141a121c35]
-aws_instance.flurydotorg: Creating...
-cloudflare_record.resume: Creation complete after 10s [id=50de49f614c558658b96992bb885c6a0]
+cloudflare_record.dmarc: Creation complete after 6s [id=30423c4ce001808933d53fdd9db688b6]
 aws_security_group_rule.allow_inbound_http: Creating...
-cloudflare_record.autodiscover: Creation complete after 11s [id=a632008acf4bf89185926450e76f0bf5]
-cloudflare_record.validate_tls["flury.org"]: Creating...
-cloudflare_record.selector2: Creation complete after 11s [id=dfddf03e086583dfa041601cf386d027]
-cloudflare_record.validate_tls["linkedin.flury.org"]: Creating...
-aws_lb_target_group.flurydotorg: Creation complete after 12s [id=arn:aws:elasticloadbalancing:us-west-2:020963292585:targetgroup/flurydotorg/02bf9db96d5032b8]
-cloudflare_record.validate_tls["resume.flury.org"]: Creating...
-cloudflare_record.selector1: Still creating... [10s elapsed]
-cloudflare_record.selector1: Creation complete after 11s [id=f32b4b25b8ee56ad234b9dd32586f637]
-cloudflare_record.validate_tls["www.flury.org"]: Creating...
-cloudflare_record.validate_tls["flury.org"]: Creation complete after 5s [id=d5ec6399d4077aa3b7f50a6e4e159318]
-aws_security_group_rule.lb_allow_outbound: Creation complete after 6s [id=sgrule-3473601019]
-aws_security_group_rule.allow_inbound_ssh: Creation complete after 6s [id=sgrule-1419108575]
-cloudflare_record.validate_tls["resume.flury.org"]: Creation complete after 4s [id=2837b5196d943aeb557604e453fbdb81]
+cloudflare_record.message: Still creating... [10s elapsed]
+cloudflare_record.resume_: Still creating... [10s elapsed]
+cloudflare_record.resume: Still creating... [10s elapsed]
+cloudflare_record.spf: Creation complete after 16s [id=08763428d9fe4a5f47881924807c261a]
+aws_instance.flurydotorg: Creating...
+cloudflare_record.resume_: Creation complete after 11s [id=57dd9b49e73008014c2cc2fdfd204b0c]
+aws_security_group_rule.allow_inbound_ssh: Creating...
+cloudflare_record.resume: Creation complete after 11s [id=cd8e7d9b8e9da9658625b0c16f170b79]
+cloudflare_record.message: Creation complete after 14s [id=97dd1f67f0888d936fcf0c448481071f]
+aws_security_group_rule.lb_allow_inbound_https: Creation complete after 5s [id=sgrule-2913447214]
+aws_security_group_rule.allow_outbound: Creation complete after 6s [id=sgrule-4018660446]
+aws_acm_certificate.flurydotorg: Still creating... [20s elapsed]
+aws_security_group_rule.lb_allow_outbound: Still creating... [10s elapsed]
 aws_lb.flurydotorg: Still creating... [10s elapsed]
-aws_security_group_rule.allow_outbound: Still creating... [10s elapsed]
-aws_instance.flurydotorg: Still creating... [10s elapsed]
 aws_security_group_rule.allow_inbound_http: Still creating... [10s elapsed]
-cloudflare_record.validate_tls["linkedin.flury.org"]: Still creating... [10s elapsed]
-cloudflare_record.validate_tls["linkedin.flury.org"]: Creation complete after 11s [id=d00aa1f658a17bfa7d5ee605033ae9a8]
-cloudflare_record.validate_tls["www.flury.org"]: Creation complete after 6s [id=5ae2becd1af63984d120aea5de88e544]
+aws_acm_certificate.flurydotorg: Creation complete after 23s [id=arn:aws:acm:us-west-2:020963292585:certificate/6f004307-c0e8-47c0-8d18-404f917343db]
+cloudflare_record.validate_tls["flury.org"]: Creating...
+cloudflare_record.validate_tls["www.flury.org"]: Creating...
+cloudflare_record.validate_tls["message.flury.org"]: Creating...
+cloudflare_record.validate_tls["xn--rsum-bpad.flury.org"]: Creating...
+cloudflare_record.validate_tls["linkedin.flury.org"]: Creating...
+aws_security_group_rule.lb_allow_outbound: Creation complete after 11s [id=sgrule-1934570503]
+cloudflare_record.validate_tls["resume.flury.org"]: Creating...
+aws_security_group_rule.allow_inbound_http: Creation complete after 11s [id=sgrule-478459259]
+cloudflare_record.validate_tls["www.flury.org"]: Creation complete after 1s [id=11723b82b46c1b80e15390f95958c57a]
+cloudflare_record.validate_tls["linkedin.flury.org"]: Creation complete after 1s [id=a52bd874250b0f9d00ee6249a2fe26e3]
+aws_security_group_rule.allow_inbound_ssh: Creation complete after 8s [id=sgrule-1396379152]
+cloudflare_record.validate_tls["xn--rsum-bpad.flury.org"]: Creation complete after 2s [id=51aed3cc2a002a0027748b3b12953016]
+cloudflare_record.validate_tls["flury.org"]: Creation complete after 2s [id=8a04366e7dfaf7ba927cac6fcbbb6515]
+cloudflare_record.validate_tls["message.flury.org"]: Creation complete after 2s [id=ab604d8738c46b4c01cca219617ee3e4]
+cloudflare_record.validate_tls["resume.flury.org"]: Creation complete after 3s [id=398d80484e3f25b499d5f344bc0cc210]
 aws_acm_certificate_validation.flurydotorg: Creating...
-aws_security_group_rule.allow_outbound: Creation complete after 12s [id=sgrule-3971449076]
-aws_security_group_rule.allow_inbound_http: Creation complete after 13s [id=sgrule-1069952230]
-aws_instance.flurydotorg: Creation complete after 14s [id=i-083ea0f5df8071981]
+aws_instance.flurydotorg: Still creating... [10s elapsed]
+aws_instance.flurydotorg: Creation complete after 13s [id=i-0ae3d853daa3a411c]
 aws_lb_target_group_attachment.flurydotorg: Creating...
 cloudflare_record.address: Creating...
-aws_lb_target_group_attachment.flurydotorg: Creation complete after 1s [id=arn:aws:elasticloadbalancing:us-west-2:020963292585:targetgroup/flurydotorg/02bf9db96d5032b8-20211230111409637600000002]
-cloudflare_record.address: Creation complete after 1s [id=ce3fa454ca3f5366f679896ee59a64ea]
+aws_lb_target_group_attachment.flurydotorg: Creation complete after 1s [id=arn:aws:elasticloadbalancing:us-west-2:020963292585:targetgroup/flurydotorg/5e91587969ade84a-20220103064024774800000002]
+cloudflare_record.address: Creation complete after 1s [id=3e72c7d31b3718c85c06fa0e2ddbf379]
 aws_lb.flurydotorg: Still creating... [20s elapsed]
 aws_acm_certificate_validation.flurydotorg: Still creating... [10s elapsed]
 aws_lb.flurydotorg: Still creating... [30s elapsed]
@@ -795,21 +890,24 @@ aws_lb.flurydotorg: Still creating... [40s elapsed]
 aws_acm_certificate_validation.flurydotorg: Still creating... [30s elapsed]
 aws_lb.flurydotorg: Still creating... [50s elapsed]
 aws_acm_certificate_validation.flurydotorg: Still creating... [40s elapsed]
-aws_acm_certificate_validation.flurydotorg: Creation complete after 41s [id=2021-12-30 11:14:46.83 +0000 UTC]
+aws_acm_certificate_validation.flurydotorg: Creation complete after 41s [id=2022-01-03 06:40:56.443 +0000 UTC]
 aws_lb.flurydotorg: Still creating... [1m0s elapsed]
 aws_lb.flurydotorg: Still creating... [1m10s elapsed]
 aws_lb.flurydotorg: Still creating... [1m20s elapsed]
 aws_lb.flurydotorg: Still creating... [1m30s elapsed]
 aws_lb.flurydotorg: Still creating... [1m40s elapsed]
 aws_lb.flurydotorg: Still creating... [1m50s elapsed]
-aws_lb.flurydotorg: Creation complete after 1m55s [id=arn:aws:elasticloadbalancing:us-west-2:020963292585:loadbalancer/app/flurydotorg-lb/85e79c218d0f87da]
+aws_lb.flurydotorg: Still creating... [2m0s elapsed]
+aws_lb.flurydotorg: Still creating... [2m10s elapsed]
+aws_lb.flurydotorg: Still creating... [2m20s elapsed]
+aws_lb.flurydotorg: Creation complete after 2m29s [id=arn:aws:elasticloadbalancing:us-west-2:020963292585:loadbalancer/app/flurydotorg-lb/aa8a759d872a7272]
 cloudflare_record.flurydotorg: Creating...
 aws_lb_listener.flurydotorg_https: Creating...
-cloudflare_record.flurydotorg: Creation complete after 0s [id=c50560058183e7ae3ecb2bdaa49266bf]
-aws_lb_listener.flurydotorg_https: Creation complete after 1s [id=arn:aws:elasticloadbalancing:us-west-2:020963292585:listener/app/flurydotorg-lb/85e79c218d0f87da/1e93c832191a7558]
+cloudflare_record.flurydotorg: Creation complete after 0s [id=d0a111fc497255e6b07172dfce93fd86]
+aws_lb_listener.flurydotorg_https: Creation complete after 1s [id=arn:aws:elasticloadbalancing:us-west-2:020963292585:listener/app/flurydotorg-lb/aa8a759d872a7272/ba453c2faad35236]
 
-Apply complete! Resources: 31 added, 0 changed, 0 destroyed.
-Warning: Permanently added '35.85.31.180' (ED25519) to the list of known hosts.
+Apply complete! Resources: 35 added, 0 changed, 0 destroyed.
+Warning: Permanently added '34.216.71.114' (ED25519) to the list of known hosts.
 Hit:1 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal InRelease
 Get:2 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal-updates InRelease [114 kB]
 Get:3 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal-backports InRelease [108 kB]
@@ -851,22 +949,28 @@ Get:38 http://ports.ubuntu.com/ubuntu-ports focal-security/universe arm64 c-n-f 
 Get:39 http://ports.ubuntu.com/ubuntu-ports focal-security/multiverse arm64 Packages [3052 B]
 Get:40 http://ports.ubuntu.com/ubuntu-ports focal-security/multiverse Translation-en [4948 B]
 Get:41 http://ports.ubuntu.com/ubuntu-ports focal-security/multiverse arm64 c-n-f Metadata [116 B]
-Fetched 18.7 MB in 3s (7066 kB/s)
+Fetched 18.7 MB in 3s (7032 kB/s)
 Reading package lists...
-ansible-playbook -b --key-file /Users/aflury/flurydotorg/ssh-key -u ubuntu -i /var/folders/38/flkkyh256hz4bm001x1d6gsw0000gp/T/tmp.WhGi67WM --extra-vars "resume_file='/Users/aflury/Documents/Resume-Andrew-Flury.pdf' domain='flury.org'" ansible/playbook.yml
 
-PLAY [servers] *****************************************************************************************************************************************************
+**************************************************
+**
+**  Running ansible-playbook check
+**
+**************************************************
 
-TASK [Gathering Facts] *********************************************************************************************************************************************
-ok: [35.85.31.180]
 
-TASK [create user aflury] ******************************************************************************************************************************************
-changed: [35.85.31.180]
+PLAY [servers] *************************************************************************************************************************************************************
 
-TASK [authorize users' keys] ***************************************************************************************************************************************
-skipping: [35.85.31.180]
+TASK [Gathering Facts] *****************************************************************************************************************************************************
+ok: [34.216.71.114]
 
-TASK [install packages] ********************************************************************************************************************************************
+TASK [create user aflury] **************************************************************************************************************************************************
+changed: [34.216.71.114]
+
+TASK [authorize users' keys] ***********************************************************************************************************************************************
+skipping: [34.216.71.114]
+
+TASK [install packages] ****************************************************************************************************************************************************
 The following additional packages will be installed:
   fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0
   libjpeg-turbo8 libjpeg8 libnginx-mod-http-image-filter
@@ -880,19 +984,19 @@ The following NEW packages will be installed:
   libnginx-mod-http-xslt-filter libnginx-mod-mail libnginx-mod-stream libtiff5
   libwebp6 libxpm4 libxslt1.1 nginx nginx-common nginx-core
 0 upgraded, 18 newly installed, 0 to remove and 134 not upgraded.
-changed: [35.85.31.180] => (item=nginx)
-ok: [35.85.31.180] => (item=python3-apt)
+changed: [34.216.71.114] => (item=nginx)
+ok: [34.216.71.114] => (item=python3-apt)
 
-TASK [sudoers] *****************************************************************************************************************************************************
+TASK [sudoers] *************************************************************************************************************************************************************
 --- before: /etc/sudoers
 +++ after: /Users/aflury/flurydotorg/ansible/files/sudoers
 @@ -6,9 +6,9 @@
  #
  # See the man page for details on how to write a sudoers file.
  #
--Defaults env_reset
--Defaults        mail_badpass
--Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
+-Defaults	env_reset
+-Defaults	mail_badpass
+-Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
 +Defaults        env_reset
 +Defaults        mail_badpass
 +Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
@@ -903,22 +1007,22 @@ TASK [sudoers] *****************************************************************
  # Cmnd alias specification
  
  # User privilege specification
--root     ALL=(ALL:ALL) ALL
+-root	ALL=(ALL:ALL) ALL
 +root    ALL=(ALL:ALL) ALL
  
  # Members of the admin group may gain root privileges
  %admin ALL=(ALL) ALL
  
  # Allow members of group sudo to execute any command
--%sudo    ALL=(ALL:ALL) ALL
+-%sudo	ALL=(ALL:ALL) ALL
 +%sudo   ALL=(ALL:ALL) NOPASSWD:ALL
  
  # See sudoers(5) for more information on "#include" directives:
  
 
-changed: [35.85.31.180]
+changed: [34.216.71.114]
 
-TASK [create htdocs] ***********************************************************************************************************************************************
+TASK [create htdocs] *******************************************************************************************************************************************************
 --- before
 +++ after
 @@ -1,4 +1,4 @@
@@ -928,139 +1032,178 @@ TASK [create htdocs] ***********************************************************
 +    "state": "directory"
  }
 
-changed: [35.85.31.180]
+changed: [34.216.71.114]
 
-TASK [deploy htdocs] ***********************************************************************************************************************************************
+TASK [deploy htdocs files] *************************************************************************************************************************************************
+diff skipped: source file appears to be binary
+changed: [34.216.71.114] => (item=favicon.ico)
+
+TASK [deploy htdocs templates] *********************************************************************************************************************************************
 --- before
-+++ after: /Users/aflury/.ansible/tmp/ansible-local-12667d0_hlogx/tmpkkzya0hl/404.html
++++ after: /Users/aflury/.ansible/tmp/ansible-local-20196_lnjmfod/tmp12rsju3a/404.html
 @@ -0,0 +1,3 @@
 +<html><head><title>Never Gonna Serve You Up</title></head><body>
 +I don't know what you're looking for, so here's Rick Astley.<br/>
 +<iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&controls=0&disablekb=1&fs=0&loop=1&modestbranding=1&playsinline=0" title="Never Gonna Serve You Up" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></body></html>
 
-changed: [35.85.31.180] => (item=404.html)
+changed: [34.216.71.114] => (item=404.html)
 --- before
-+++ after: /Users/aflury/.ansible/tmp/ansible-local-12667d0_hlogx/tmp8pek1m2r/index.html
++++ after: /Users/aflury/.ansible/tmp/ansible-local-20196_lnjmfod/tmpc1jlox9h/index.html
 @@ -0,0 +1 @@
 +<html><head><body bgcolor="black"></body></html>
 
-changed: [35.85.31.180] => (item=index.html)
+changed: [34.216.71.114] => (item=index.html)
 --- before
-+++ after: /Users/aflury/.ansible/tmp/ansible-local-12667d0_hlogx/tmpi9lda7jt/linkedin-301.html
++++ after: /Users/aflury/.ansible/tmp/ansible-local-20196_lnjmfod/tmpptwxvi4k/linkedin-301.html
 @@ -0,0 +1 @@
 +<html><head><title>redirect</title><body>Click <a href="https://www.linkedin.com/in/andrew-flury-47815a/">here</a> (https://www.linkedin.com/in/andrew-flury-47815a/) if you are not redirected automatically.</body></html>
 
-changed: [35.85.31.180] => (item=linkedin-301.html)
+changed: [34.216.71.114] => (item=linkedin-301.html)
 --- before
-+++ after: /Users/aflury/.ansible/tmp/ansible-local-12667d0_hlogx/tmpkfohfghb/robots.txt
++++ after: /Users/aflury/.ansible/tmp/ansible-local-20196_lnjmfod/tmp_o2fehe8/message-301.html
+@@ -0,0 +1 @@
++<html><head><title>redirect</title><body>Click <a href="https://www.linkedin.com/messaging/thread/new?recipient=andrew-flury-47815a">here</a> (https://www.linkedin.com/messaging/thread/new?recipient=andrew-flury-47815a) if you are not redirected automatically.</body></html>
+
+changed: [34.216.71.114] => (item=message-301.html)
+--- before
++++ after: /Users/aflury/.ansible/tmp/ansible-local-20196_lnjmfod/tmpef7jvdey/robots.txt
 @@ -0,0 +1 @@
 +User-agent: * Disallow: /
 
-changed: [35.85.31.180] => (item=robots.txt)
+changed: [34.216.71.114] => (item=robots.txt)
 
-TASK [publish resume] **********************************************************************************************************************************************
+TASK [publish resume] ******************************************************************************************************************************************************
 diff skipped: source file size is greater than 104448
-changed: [35.85.31.180]
+changed: [34.216.71.114]
 
-TASK [nginx site config] *******************************************************************************************************************************************
+TASK [nginx site config] ***************************************************************************************************************************************************
 --- before
-+++ after: /Users/aflury/.ansible/tmp/ansible-local-12667d0_hlogx/tmpmtk_i6tu/nginx-default
-@@ -0,0 +1,31 @@
++++ after: /Users/aflury/.ansible/tmp/ansible-local-20196_lnjmfod/tmpxyybrgez/nginx-default
+@@ -0,0 +1,46 @@
 +server_names_hash_bucket_size 128;
 +
 +server {
-+        listen 80 default_server;
-+        listen [::]:80 default_server;
-+        server_name _;
-+        root /flurydotorg/htdocs;
-+        index index.html;
-+        error_page 404 /404.html;
++	listen 80 default_server;
++	listen [::]:80 default_server;
++	server_name _;
++	root /flurydotorg/htdocs;
++	index index.html;
++	error_page 404 /404.html;
++}
++
++server {
++	listen 80;
++	listen [::]:80;
++	server_name linkedin.flury.org;
++	root /flurydotorg/htdocs;
++	error_page 301 /linkedin-301.html;
++	error_page 404 /404.html;
++	location = / {
++		return 301 "https://www.linkedin.com/in/andrew-flury-47815a/";
++	}
 +}
 +
 +server {
 +        listen 80;
 +        listen [::]:80;
-+        server_name linkedin.flury.org;
++        server_name message.flury.org;
 +        root /flurydotorg/htdocs;
-+        error_page 301 /linkedin-301.html;
++        error_page 301 /message-301.html;
 +        error_page 404 /404.html;
 +        location = / {
-+                return 301 https://www.linkedin.com/in/andrew-flury-47815a/;
++                return 301 "https://www.linkedin.com/messaging/thread/new?recipient=andrew-flury-47815a";
 +        }
 +}
 +
 +server {
-+        listen 80;
-+        listen [::]:80;
-+        server_name resume.flury.org;
-+        root /flurydotorg/htdocs;
-+        index resume.pdf;
-+        error_page 404 /404.html;
++	listen 80;
++	listen [::]:80;
++	server_name resume.flury.org xn--rsum-bpad.flury.org;
++	root /flurydotorg/htdocs;
++	index resume.pdf;
++	error_page 404 /404.html;
++	location / {
++		add_header Content-Disposition 'filename="Resume-Andrew-Flury.pdf"';
++	}
 +}
 
-changed: [35.85.31.180]
+changed: [34.216.71.114]
 
-RUNNING HANDLER [reload nginx] *************************************************************************************************************************************
-skipping: [35.85.31.180]
+RUNNING HANDLER [reload nginx] *********************************************************************************************************************************************
+skipping: [34.216.71.114]
 
-PLAY RECAP *********************************************************************************************************************************************************
-35.85.31.180               : ok=8    changed=7    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+PLAY RECAP *****************************************************************************************************************************************************************
+34.216.71.114              : ok=9    changed=8    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
 
 
 
 Does everything look OK? y/n y
 
-PLAY [servers] *****************************************************************************************************************************************************
+**************************************************
+**
+**  Running ansible-playbook
+**
+**************************************************
 
-TASK [Gathering Facts] *********************************************************************************************************************************************
-ok: [35.85.31.180]
++ ansible-playbook -b --key-file /Users/aflury/flurydotorg/ssh-key -u ubuntu -i /var/folders/38/flkkyh256hz4bm001x1d6gsw0000gp/T/tmp.OkESEhUw --extra-vars 'linkedin_profile='\''andrew-flury-47815a'\'' resume_file='\''/Users/aflury/Documents/Resume-Andrew-Flury.pdf'\'' resume_base='\''Resume-Andrew-Flury.pdf'\'' domain='\''flury.org'\''' ansible/playbook.yml
 
-TASK [create user aflury] ******************************************************************************************************************************************
-changed: [35.85.31.180]
+PLAY [servers] *************************************************************************************************************************************************************
 
-TASK [authorize users' keys] ***************************************************************************************************************************************
-changed: [35.85.31.180]
+TASK [Gathering Facts] *****************************************************************************************************************************************************
+ok: [34.216.71.114]
 
-TASK [install packages] ********************************************************************************************************************************************
-changed: [35.85.31.180] => (item=nginx)
-ok: [35.85.31.180] => (item=python3-apt)
+TASK [create user aflury] **************************************************************************************************************************************************
+changed: [34.216.71.114]
 
-TASK [sudoers] *****************************************************************************************************************************************************
-changed: [35.85.31.180]
+TASK [authorize users' keys] ***********************************************************************************************************************************************
+changed: [34.216.71.114]
 
-TASK [create htdocs] ***********************************************************************************************************************************************
-changed: [35.85.31.180]
+TASK [install packages] ****************************************************************************************************************************************************
+changed: [34.216.71.114] => (item=nginx)
+ok: [34.216.71.114] => (item=python3-apt)
 
-TASK [deploy htdocs] ***********************************************************************************************************************************************
-changed: [35.85.31.180] => (item=404.html)
-changed: [35.85.31.180] => (item=index.html)
-changed: [35.85.31.180] => (item=linkedin-301.html)
-changed: [35.85.31.180] => (item=robots.txt)
+TASK [sudoers] *************************************************************************************************************************************************************
+changed: [34.216.71.114]
 
-TASK [publish resume] **********************************************************************************************************************************************
-changed: [35.85.31.180]
+TASK [create htdocs] *******************************************************************************************************************************************************
+changed: [34.216.71.114]
 
-TASK [nginx site config] *******************************************************************************************************************************************
-changed: [35.85.31.180]
+TASK [deploy htdocs files] *************************************************************************************************************************************************
+changed: [34.216.71.114] => (item=favicon.ico)
 
-RUNNING HANDLER [reload nginx] *************************************************************************************************************************************
-changed: [35.85.31.180]
+TASK [deploy htdocs templates] *********************************************************************************************************************************************
+changed: [34.216.71.114] => (item=404.html)
+changed: [34.216.71.114] => (item=index.html)
+changed: [34.216.71.114] => (item=linkedin-301.html)
+changed: [34.216.71.114] => (item=message-301.html)
+changed: [34.216.71.114] => (item=robots.txt)
 
-PLAY RECAP *********************************************************************************************************************************************************
-35.85.31.180               : ok=10   changed=9    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+TASK [publish resume] ******************************************************************************************************************************************************
+changed: [34.216.71.114]
 
-|03:17:28|aflury@aflury:[flurydotorg]> ssh ec2.flury.org uptime
-The authenticity of host 'ec2.flury.org (35.85.31.180)' can't be established.
-ED25519 key fingerprint is SHA256:utIQLvMPxFvASIOF9UY3OpvNFmA+0vb03owK9G7oi4Y.
+TASK [nginx site config] ***************************************************************************************************************************************************
+changed: [34.216.71.114]
+
+RUNNING HANDLER [reload nginx] *********************************************************************************************************************************************
+changed: [34.216.71.114]
+
+PLAY RECAP *****************************************************************************************************************************************************************
+34.216.71.114              : ok=11   changed=10   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+|22:45:10|aflury@aflury:[flurydotorg]> ssh ec2.flury.org uptime
+The authenticity of host 'ec2.flury.org (34.216.71.114)' can't be established.
+ED25519 key fingerprint is SHA256:+bD62L63LTS3dWFZJ6OqcHHQUO7lm02PeOfnGg+QewM.
 This host key is known by the following other names/addresses:
-    ~/.ssh/known_hosts:243: 35.85.31.180
+    ~/.ssh/known_hosts:257: 34.216.71.114
 Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
 Warning: Permanently added 'ec2.flury.org' (ED25519) to the list of known hosts.
- 11:19:00 up 4 min,  0 users,  load average: 0.11, 0.17, 0.08
-|03:19:00|aflury@aflury:[flurydotorg]> curl https://linkedin.flury.org
+ 06:46:43 up 6 min,  0 users,  load average: 1.01, 0.34, 0.14
+|22:46:43|aflury@aflury:[flurydotorg]> curl -s https://linkedin.flury.org
 <html><head><title>redirect</title><body>Click <a href="https://www.linkedin.com/in/andrew-flury-47815a/">here</a> (https://www.linkedin.com/in/andrew-flury-47815a/) if you are not redirected automatically.</body></html>
-|03:19:09|aflury@aflury:[flurydotorg]> curl -s https://resume.flury.org | file -
+|22:46:51|aflury@aflury:[flurydotorg]> curl -s https://message.flury.org
+<html><head><title>redirect</title><body>Click <a href="https://www.linkedin.com/messaging/thread/new?recipient=andrew-flury-47815a">here</a> (https://www.linkedin.com/messaging/thread/new?recipient=andrew-flury-47815a) if you are not redirected automatically.</body></html>
+|22:47:04|aflury@aflury:[flurydotorg]> curl -s https://resume.flury.org | file -
 /dev/stdin: PDF document, version 1.7, 3 pages
-|03:19:17|aflury@aflury:[flurydotorg]> BAM! weak hire.
+|22:47:17|aflury@aflury:[flurydotorg]> WEAK HIRE!
 ```
 </details>

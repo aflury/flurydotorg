@@ -17,8 +17,20 @@ server {
 	error_page 301 /linkedin-301.html;
 	error_page 404 /404.html;
 	location = / {
-		return 301 https://www.linkedin.com/in/andrew-flury-47815a/;
+		return 301 "https://www.linkedin.com/in/{{linkedin_profile}}/";
 	}
+}
+
+server {
+        listen 80;
+        listen [::]:80;
+        server_name message.{{domain}};
+        root /flurydotorg/htdocs;
+        error_page 301 /message-301.html;
+        error_page 404 /404.html;
+        location = / {
+                return 301 "https://www.linkedin.com/messaging/thread/new?recipient={{linkedin_profile}}&body=Your%20résumé%20is%20amazing,%20but";
+        }
 }
 
 server {

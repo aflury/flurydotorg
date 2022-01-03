@@ -51,6 +51,7 @@
         - 404.html
         - index.html
         - linkedin-301.html
+        - message-301.html
         - robots.txt
 
     - name: "publish resume"

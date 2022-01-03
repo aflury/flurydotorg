@@ -8,3 +8,4 @@ export DOMAIN=example.net
 export SYMBOLIC_NAME=example-net
 export DMARC_CNAME=nonexistent.example.net
 export RESUME_FILE=/Users/user/Documents/resume.pdf
+export LINKEDIN_PROFILE=obedient-worker-123

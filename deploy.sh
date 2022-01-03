@@ -48,6 +48,13 @@ export TF_VAR_aws_account_id=`aws iam get-user --output text | awk '{print $2}' 
 cd terraform 
 terraform="terraform apply"
 [ "$force" == "1" ] && terraform="$terraform -auto-approve"
+echo
+echo '**************************************************'
+echo '**'
+echo '**  Running terraform apply'
+echo '**'
+echo '**************************************************'
+echo
 terraform apply
 # We only need the public IP address to avoid waiting for ec2.$domain's address record to update.
 ec2_ip=`terraform show | awk '$1 ~ /public_ip/ && $3 ~ /[0-9]+\./ {print $3}' | sed -e 's/"//g'`
@@ -75,13 +82,19 @@ playbook="ansible-playbook \
  --key-file `pwd`/ssh-key \
  -u ubuntu \
  -i $hosts \
- --extra-vars \"resume_file='$RESUME_FILE' resume_base='`basename $RESUME_FILE`' domain='$DOMAIN'\" \
+ --extra-vars \"linkedin_profile='$LINKEDIN_PROFILE' resume_file='$RESUME_FILE' resume_base='`basename $RESUME_FILE`' domain='$DOMAIN'\" \
  ansible/playbook.yml \
 "
 
-# Run in check mode first.
 if [ "$force" != 1 ]
-then
+  then
+  echo
+  echo '**************************************************'
+  echo '**'
+  echo '**  Running ansible-playbook check'
+  echo '**'
+  echo '**************************************************'
+  echo
   bash -c "$playbook -CD"
   echo
   echo
@@ -93,5 +106,11 @@ then
   fi
 fi
 
-# Run ansible for real!
+echo
+echo '**************************************************'
+echo '**'
+echo '**  Running ansible-playbook'
+echo '**'
+echo '**************************************************'
+echo
 bash -cx "$playbook"
