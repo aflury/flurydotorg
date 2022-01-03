@@ -53,6 +53,48 @@ resource "aws_security_group_rule" "lb_allow_outbound" {
   security_group_id = aws_security_group.flurydotorg_lb.id
 }
 
+data "aws_iam_policy_document" "flurydotorg_assume_role" {
+  statement {
+    actions = ["sts:AssumeRole"]
+    principals {
+      type        = "Service"
+      identifiers = ["ec2.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "flurydotorg_assume_role" {
+  name = "flurydotorg_assume_role"
+  assume_role_policy = data.aws_iam_policy_document.flurydotorg_assume_role.json
+}
+
+resource "aws_iam_instance_profile" "flurydotorg" {
+  name = "flurydotorg_instance_profile"
+  role = aws_iam_role.flurydotorg_assume_role.name
+}
+
+resource "aws_iam_role_policy" "flurydotorg_log_policy" {
+  name   = "flurydotorg_log_policy"
+  role   = aws_iam_role.flurydotorg_assume_role.id
+  policy = data.aws_iam_policy_document.flurydotorg_cloudwatch_policy.json
+}
+
+data "aws_iam_policy_document" "flurydotorg_cloudwatch_policy" {
+  statement {
+    actions = [
+      "logs:CreateLogGroup",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents",
+      "logs:DescribeLogStreams",
+    ]
+    resources = ["arn:aws:logs:${var.aws_region}:${var.aws_account_id}:log-group:${var.symbolic_name}:log-stream:*"]
+  }
+}
+
+resource "aws_cloudwatch_log_group" "flurydotorg" {
+  name = var.symbolic_name
+}
+
 resource "aws_instance" "flurydotorg" {
   ami                    = "ami-09d9c897fc36713bf"
   instance_type          = "t4g.nano"
@@ -60,6 +102,7 @@ resource "aws_instance" "flurydotorg" {
   key_name               = "flurydotorg-ssh"
   vpc_security_group_ids = [aws_security_group.flurydotorg.id]
   hibernation            = false
+  iam_instance_profile   = aws_iam_instance_profile.flurydotorg.name
 }
 
 resource "aws_lb" "flurydotorg" {

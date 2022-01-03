@@ -82,7 +82,7 @@ playbook="ansible-playbook \
  --key-file `pwd`/ssh-key \
  -u ubuntu \
  -i $hosts \
- --extra-vars \"linkedin_profile='$LINKEDIN_PROFILE' resume_file='$RESUME_FILE' resume_base='`basename $RESUME_FILE`' domain='$DOMAIN'\" \
+ --extra-vars \"linkedin_profile='$LINKEDIN_PROFILE' resume_file='$RESUME_FILE' resume_base='`basename $RESUME_FILE`' domain='$DOMAIN' symbolic_name='$SYMBOLIC_NAME'\" \
  ansible/playbook.yml \
 "
 

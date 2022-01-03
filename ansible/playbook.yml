@@ -35,15 +35,35 @@
       apt: name={{item}} update_cache=yes cache_valid_time=86400
       with_items:
         - nginx
+        - python2  # awslogs-agent doesn't work on python > 3.4.. c'mon Amazon.
         - python3-apt
 
-    - name: "sudoers"
+    - name: "copy sudoers"
       copy:
         src=sudoers
         dest=/etc/sudoers
         mode=0440
         owner=root
         group=root
+
+    - name: "copy awslogs.conf"
+      template:
+        src=awslogs.conf
+        dest=/var/awslogs/etc/awslogs.conf
+        mode=0440
+        owner=root
+        group=root
+      notify: "restart awslogs"
+
+    - name: "copy awslogs-agent-setup.py"
+      uri:
+        url=https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py
+        creates=/root/awslogs-agent-setup.py
+        dest=/root/awslogs-agent-setup.py
+        mode=0644
+        owner=root
+        group=root
+      notify: "run awslogs-agent-setup.py"
 
     - name: "create htdocs"
       file:
@@ -90,6 +110,14 @@
       notify: reload nginx
 
   handlers:
-    - name: reload nginx
+    - name: "run awslogs-agent-setup.py"
+      shell:
+        cmd: "sudo python2 /root/awslogs-agent-setup.py --region us-west-2 -n --config /var/awslogs/etc/awslogs.conf"
+
+    - name: "restart awslogs"
+      service: name=awslogs state=restarted  # Maybe `reloaded` works but I don't trust it.
+      when: not ansible_check_mode
+
+    - name: "reload nginx"
       service: name=nginx state=reloaded
       when: not ansible_check_mode
