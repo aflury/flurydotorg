@@ -1,5 +1,5 @@
 resource "cloudflare_zone" "flurydotorg" {
-    zone = "${var.domain}"
+  zone = var.domain
 }
 
 resource "cloudflare_record" "flurydotorg" {
@@ -14,7 +14,7 @@ resource "cloudflare_record" "flurydotorg" {
 resource "cloudflare_record" "www" {
   zone_id = cloudflare_zone.flurydotorg.id
   name    = "www"
-  value   = "${var.domain}"
+  value   = var.domain
   type    = "CNAME"
   proxied = true
   ttl     = 1
@@ -23,7 +23,7 @@ resource "cloudflare_record" "www" {
 resource "cloudflare_record" "linkedin" {
   zone_id = cloudflare_zone.flurydotorg.id
   name    = "linkedin"
-  value   = "${var.domain}"
+  value   = var.domain
   type    = "CNAME"
   proxied = true
   ttl     = 1
@@ -32,7 +32,7 @@ resource "cloudflare_record" "linkedin" {
 resource "cloudflare_record" "message" {
   zone_id = cloudflare_zone.flurydotorg.id
   name    = "message"
-  value   = "${var.domain}"
+  value   = var.domain
   type    = "CNAME"
   proxied = true
   ttl     = 1
@@ -41,7 +41,7 @@ resource "cloudflare_record" "message" {
 resource "cloudflare_record" "resume" {
   zone_id = cloudflare_zone.flurydotorg.id
   name    = "resume"
-  value   = "${var.domain}"
+  value   = var.domain
   type    = "CNAME"
   proxied = true
   ttl     = 1
@@ -50,7 +50,7 @@ resource "cloudflare_record" "resume" {
 resource "cloudflare_record" "resume_" {
   zone_id = cloudflare_zone.flurydotorg.id
   name    = "xn--rsum-bpad"
-  value   = "${var.domain}"
+  value   = var.domain
   type    = "CNAME"
   proxied = true
   ttl     = 1
@@ -124,9 +124,9 @@ resource "cloudflare_record" "dmarc" {
 resource "cloudflare_record" "validate_tls" {
   for_each = {
     for dvo in aws_acm_certificate.flurydotorg.domain_validation_options : dvo.domain_name => {
-      name    = dvo.resource_record_name
-      record  = dvo.resource_record_value
-      type    = dvo.resource_record_type
+      name   = dvo.resource_record_name
+      record = dvo.resource_record_value
+      type   = dvo.resource_record_type
     }
   }
   zone_id         = cloudflare_zone.flurydotorg.id

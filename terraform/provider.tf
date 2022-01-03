@@ -12,7 +12,7 @@ terraform {
 
   backend "s3" {
     # bucket is set by `terraform init`.
-    key    = "terraform.tfstate"
+    key = "terraform.tfstate"
   }
 }
 

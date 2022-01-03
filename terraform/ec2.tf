@@ -1,5 +1,5 @@
 resource "aws_security_group" "flurydotorg" {
-  name = "flurydotorg"
+  name   = "flurydotorg"
   vpc_id = var.flurydotorg_vpc
 }
 
@@ -28,7 +28,7 @@ resource "aws_security_group_rule" "allow_outbound" {
   protocol          = -1
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.flurydotorg.id
-} 
+}
 
 resource "aws_security_group" "flurydotorg_lb" {
   name   = "flurydotorg-lb"
@@ -64,7 +64,7 @@ data "aws_iam_policy_document" "flurydotorg_assume_role" {
 }
 
 resource "aws_iam_role" "flurydotorg_assume_role" {
-  name = "flurydotorg_assume_role"
+  name               = "flurydotorg_assume_role"
   assume_role_policy = data.aws_iam_policy_document.flurydotorg_assume_role.json
 }
 
@@ -119,10 +119,10 @@ resource "aws_lb" "flurydotorg" {
 }
 
 resource "aws_lb_target_group" "flurydotorg" {
-  name = "flurydotorg"
-  port = 80
+  name     = "flurydotorg"
+  port     = 80
   protocol = "HTTP"
-  vpc_id = var.flurydotorg_vpc
+  vpc_id   = var.flurydotorg_vpc
 }
 
 resource "aws_lb_listener" "flurydotorg_https" {
@@ -130,7 +130,7 @@ resource "aws_lb_listener" "flurydotorg_https" {
   port              = 443
   protocol          = "HTTPS"
   default_action {
-    type = "forward"
+    type             = "forward"
     target_group_arn = aws_lb_target_group.flurydotorg.arn
   }
   certificate_arn = aws_acm_certificate_validation.flurydotorg.certificate_arn

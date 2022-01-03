@@ -1,5 +1,6 @@
 resource "aws_acm_certificate" "flurydotorg" {
-  domain_name               = var.domain
+  domain_name       = var.domain
+  validation_method = "DNS"
   subject_alternative_names = [
     "linkedin.${var.domain}",
     "message.${var.domain}",
@@ -7,7 +8,6 @@ resource "aws_acm_certificate" "flurydotorg" {
     "www.${var.domain}",
     "xn--rsum-bpad.${var.domain}"
   ]
-  validation_method         = "DNS"
 }
 
 resource "aws_acm_certificate_validation" "flurydotorg" {
