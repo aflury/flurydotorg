@@ -1,6 +1,5 @@
 resource aws_s3_bucket "flurydotorg-tfstate" {
   bucket = "${var.symbolic_name}-tfstate"
-  tags   = {}
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
@@ -12,7 +11,6 @@ resource aws_s3_bucket "flurydotorg-tfstate" {
 
 resource aws_s3_bucket "flurydotorg_logs" {
   bucket        = "${var.symbolic_name}-logs"
-  tags          = {}
 
   server_side_encryption_configuration {
     rule {

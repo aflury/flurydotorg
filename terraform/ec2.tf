@@ -60,9 +60,6 @@ resource "aws_instance" "flurydotorg" {
   key_name               = "flurydotorg-ssh"
   vpc_security_group_ids = [aws_security_group.flurydotorg.id]
   hibernation            = false
-  tags = {
-    Name = "${var.symbolic_name} webserver"
-  }
 }
 
 resource "aws_lb" "flurydotorg" {
