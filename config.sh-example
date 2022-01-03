@@ -1,3 +1,6 @@
+# Set these two or `AWS_PROFILE` (these will take precedence).
+# export AWS_ACCESS_KEY_ID=foo
+# export AWS_SECRET_ACCESS_KEY=bar
 export AWS_PROFILE=myawsprofile
 export CLOUDFLARE_EMAIL=someone+cloudflare@example.net
 export CLOUDFLARE_API_TOKEN=asdasdda
