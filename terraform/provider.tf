@@ -21,6 +21,8 @@ provider "cloudflare" {
   api_token = var.cloudflare_api_token
 }
 
+data "cloudflare_ip_ranges" "cloudflare" {}
+
 provider "aws" {
   region = var.aws_region
   default_tags {
