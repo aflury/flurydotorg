@@ -112,7 +112,7 @@
   handlers:
     - name: "run awslogs-agent-setup.py"
       shell:
-        cmd: "sudo python2 /root/awslogs-agent-setup.py --region us-west-2 -n --config /var/awslogs/etc/awslogs.conf"
+        cmd: "python2 /root/awslogs-agent-setup.py --region us-west-2 -n --config /var/awslogs/etc/awslogs.conf"
 
     - name: "restart awslogs"
       service: name=awslogs state=restarted  # Maybe `reloaded` works but I don't trust it.
