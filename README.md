@@ -1,9 +1,10 @@
 # flury.org
 
-Makes a flury.org. Mostly just a little static content and some redirects and DNS stuff.
+Makes a flury.org. Just a personal domain with a little static content and some redirects and DNS stuff.
 
 This is a public repo because it's hosting files that say I'm good at computers and security, and I like irony.
-It looks more sensitive than it is though. I think.
+It looks more sensitive than it is though. I think. It probably isn't super useful to other people as-is, but
+it could help if you're trying to use terraform/ansible to set up personal domain hosting.
 
 ## Layout
 |path|function|
@@ -56,18 +57,18 @@ PLAY RECAP *********************************************************************
   </summary>
 
 ```
-|16:35:52|aflury@aflury:[flurydotorg]> ( cd terraform && AWS_PROFILE=personal terraform destroy )
+|08:05:29|aflury@aflury:[flurydotorg]> ( cd terraform && AWS_PROFILE=personal terraform destroy )
 <ok not FULL>
-|16:37:58|aflury@aflury:[flurydotorg]> cat config.sh
+|08:07:12|aflury@aflury:[flurydotorg]> cat config.sh
 export AWS_PROFILE=personal
-export CLOUDFLARE_EMAIL=andrew+cloudflare@flupleasedontspammery.org
+export CLOUDFLARE_EMAIL=andrew+cloudflare@flupleasenospamry.org
 export CLOUDFLARE_API_TOKEN=VEohnoyoudidnt
 export DOMAIN=flury.org
 export SYMBOLIC_NAME=flury-org
 export DMARC_CNAME=_dmarc.bf.17.94.02.dns.agari.com
 export RESUME_FILE=/Users/aflury/Documents/Resume-Andrew-Flury.pdf
 export LINKEDIN_PROFILE=andrew-flury-47815a
-|16:38:03|aflury@aflury:[flurydotorg]> ./deploy.sh 
+|08:07:32|aflury@aflury:[flurydotorg]> ./deploy.sh
 
 **************************************************
 **
@@ -78,7 +79,8 @@ export LINKEDIN_PROFILE=andrew-flury-47815a
 aws_s3_bucket.flurydotorg-tfstate: Refreshing state... [id=flury-org-tfstate]
 aws_s3_bucket.flurydotorg_logs: Refreshing state... [id=flury-org-logs]
 
-Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the
+following symbols:
   + create
 
 Terraform will perform the following actions:
@@ -921,101 +923,99 @@ Do you want to perform these actions?
   Enter a value: yes
 
 cloudflare_zone.flurydotorg: Creating...
-aws_cloudwatch_log_group.flurydotorg: Creating...
-aws_security_group.flurydotorg_lb: Creating...
-aws_security_group.flurydotorg: Creating...
-aws_iam_role.flurydotorg_assume_role: Creating...
 aws_key_pair.flurydotorg-ssh: Creating...
+aws_security_group.flurydotorg: Creating...
+aws_cloudwatch_log_group.flurydotorg: Creating...
 aws_lb_target_group.flurydotorg: Creating...
+aws_security_group.flurydotorg_lb: Creating...
+aws_iam_role.flurydotorg_assume_role: Creating...
 aws_acm_certificate.flurydotorg: Creating...
 cloudflare_zone.flurydotorg: Creation complete after 2s [id=aaa37b82133deae64fc7a3c76ad95896]
-cloudflare_record.selector1: Creating...
-cloudflare_record.spf: Creating...
-cloudflare_record.resume_: Creating...
-aws_key_pair.flurydotorg-ssh: Creation complete after 6s [id=flurydotorg-ssh]
-cloudflare_record.message: Creating...
-cloudflare_record.resume_: Creation complete after 5s [id=ea89ae22f29b04146720921951631384]
-cloudflare_record.autodiscover: Creating...
-aws_cloudwatch_log_group.flurydotorg: Creation complete after 6s [id=flury-org]
-cloudflare_record.www: Creating...
-aws_iam_role.flurydotorg_assume_role: Creation complete after 8s [id=flurydotorg_assume_role]
 cloudflare_record.linkedin: Creating...
-aws_security_group.flurydotorg_lb: Creation complete after 8s [id=sg-0579d4f8294f0286b]
-cloudflare_record.mx: Creating...
-aws_security_group.flurydotorg: Creation complete after 8s [id=sg-0b075133f3c934114]
+cloudflare_record.selector1: Creating...
+cloudflare_record.resume_: Creating...
+aws_key_pair.flurydotorg-ssh: Creation complete after 5s [id=flurydotorg-ssh]
+cloudflare_record.spf: Creating...
+cloudflare_record.resume_: Creation complete after 6s [id=0e435b7583b04bb7f3e12c46f444919d]
 cloudflare_record.selector2: Creating...
-aws_acm_certificate.flurydotorg: Creation complete after 9s [id=arn:aws:acm:us-west-2:020963292585:certificate/ad2e7412-8b50-44b0-b4e4-57e623b07307]
+aws_cloudwatch_log_group.flurydotorg: Creation complete after 6s [id=flury-org]
 cloudflare_record.resume: Creating...
-aws_lb_target_group.flurydotorg: Still creating... [10s elapsed]
-cloudflare_record.spf: Still creating... [10s elapsed]
-cloudflare_record.selector1: Still creating... [10s elapsed]
-cloudflare_record.spf: Creation complete after 10s [id=4538515d912ba5658aa3b32756dd9261]
+aws_iam_role.flurydotorg_assume_role: Creation complete after 8s [id=flurydotorg_assume_role]
 cloudflare_record.dmarc: Creating...
-cloudflare_record.selector1: Creation complete after 10s [id=da9fb4ca0f45d305f6dcf7d58bb794d6]
-aws_iam_role_policy.flurydotorg_log_policy: Creating...
-cloudflare_record.www: Creation complete after 5s [id=069906404d6b43e42493da166c3f9c82]
+aws_acm_certificate.flurydotorg: Creation complete after 8s [id=arn:aws:acm:us-west-2:020963292585:certificate/3ca1f203-60ac-48ca-9f49-ac17ffef3b52]
+cloudflare_record.autodiscover: Creating...
+aws_security_group.flurydotorg: Still creating... [10s elapsed]
+aws_lb_target_group.flurydotorg: Still creating... [10s elapsed]
+aws_security_group.flurydotorg_lb: Still creating... [10s elapsed]
+cloudflare_record.selector1: Still creating... [10s elapsed]
+cloudflare_record.linkedin: Still creating... [10s elapsed]
+cloudflare_record.linkedin: Creation complete after 10s [id=65a92e0e11a7de8760132faed5cb64c5]
+cloudflare_record.message: Creating...
+cloudflare_record.selector1: Creation complete after 11s [id=e7d25a5c3bc2e9ebbb1ccc774f8a04a0]
+cloudflare_record.www: Creating...
+cloudflare_record.selector2: Creation complete after 5s [id=3507eaae438cce0ba64c1cb104eea4ed]
+cloudflare_record.mx: Creating...
+cloudflare_record.spf: Still creating... [10s elapsed]
+cloudflare_record.resume: Creation complete after 10s [id=ec6992b2214fee69df83eab6a955e6d3]
 aws_iam_instance_profile.flurydotorg: Creating...
+cloudflare_record.spf: Creation complete after 11s [id=6f54e6a9f1482a98a5080feca5d5ccb9]
+aws_iam_role_policy.flurydotorg_log_policy: Creating...
+cloudflare_record.autodiscover: Creation complete after 8s [id=01da79ab7b9a1f945e517372a71d0d9d]
+cloudflare_record.validate_tls["linkedin.flury.org"]: Creating...
+cloudflare_record.dmarc: Creation complete after 8s [id=8fe031a1e7ece0fc5c9057584a83f3f6]
+cloudflare_record.validate_tls["resume.flury.org"]: Creating...
+aws_lb_target_group.flurydotorg: Creation complete after 16s [id=arn:aws:elasticloadbalancing:us-west-2:020963292585:targetgroup/flurydotorg/8c0a07dcca97d8c8]
+cloudflare_record.validate_tls["xn--rsum-bpad.flury.org"]: Creating...
+aws_security_group.flurydotorg: Creation complete after 17s [id=sg-0a57afef7defb4654]
+aws_security_group.flurydotorg_lb: Creation complete after 17s [id=sg-0f168cddd6c35de79]
+cloudflare_record.validate_tls["www.flury.org"]: Creating...
+cloudflare_record.validate_tls["flury.org"]: Creating...
 cloudflare_record.message: Still creating... [10s elapsed]
-cloudflare_record.autodiscover: Still creating... [10s elapsed]
-cloudflare_record.resume: Creation complete after 8s [id=acd072643478f5dfd5a40637c15f15ae]
-cloudflare_record.message: Creation complete after 11s [id=bc55ebfebafef21b34248f69610500cf]
-cloudflare_record.linkedin: Creation complete after 9s [id=5c442d3006d9bb2346ec9be36e2c53cd]
-aws_security_group_rule.lb_allow_outbound: Creating...
-aws_security_group_rule.lb_allow_inbound_https: Creating...
-aws_lb.flurydotorg: Creating...
-cloudflare_record.autodiscover: Creation complete after 11s [id=d4fd7db90f0f775b6271aebcf4d2f58d]
-aws_security_group_rule.allow_inbound_ssh: Creating...
-cloudflare_record.mx: Creation complete after 9s [id=43442e6d1239d69f0381a9f01eaf72e4]
+cloudflare_record.www: Still creating... [10s elapsed]
+cloudflare_record.mx: Still creating... [10s elapsed]
+cloudflare_record.www: Creation complete after 10s [id=ff64fac3ba30bb977eac4a69a7bc7b9a]
+cloudflare_record.validate_tls["message.flury.org"]: Creating...
+cloudflare_record.validate_tls["linkedin.flury.org"]: Creation complete after 5s [id=1f0895c06d65586d1023f715682cb609]
 aws_security_group_rule.allow_outbound: Creating...
-cloudflare_record.selector2: Creation complete after 9s [id=e85c633476a0601f4d850598aa360b05]
+cloudflare_record.message: Creation complete after 11s [id=ce39dadc3b77e38ccea124155d13fdae]
+aws_security_group_rule.allow_inbound_ssh: Creating...
+cloudflare_record.mx: Creation complete after 10s [id=1f7a6be2e1b2f8bd2adf6ea3b25848c5]
 aws_security_group_rule.allow_inbound_http: Creating...
 aws_iam_role_policy.flurydotorg_log_policy: Creation complete after 6s [id=flurydotorg_assume_role:flurydotorg_log_policy]
-cloudflare_record.validate_tls["www.flury.org"]: Creating...
-aws_lb_target_group.flurydotorg: Still creating... [20s elapsed]
-cloudflare_record.dmarc: Still creating... [10s elapsed]
+aws_security_group_rule.lb_allow_outbound: Creating...
 aws_iam_instance_profile.flurydotorg: Still creating... [10s elapsed]
-cloudflare_record.dmarc: Creation complete after 11s [id=1a996d82fac49d5ebe7cea88ca2b32e8]
-cloudflare_record.validate_tls["xn--rsum-bpad.flury.org"]: Creating...
-aws_lb_target_group.flurydotorg: Creation complete after 22s [id=arn:aws:elasticloadbalancing:us-west-2:020963292585:targetgroup/flurydotorg/c6fbd7ce36ca6fd5]
-cloudflare_record.validate_tls["resume.flury.org"]: Creating...
-cloudflare_record.validate_tls["www.flury.org"]: Creation complete after 5s [id=d68e7af9b77cdd2e90dfa96d51d29cb4]
-cloudflare_record.validate_tls["message.flury.org"]: Creating...
-aws_security_group_rule.lb_allow_outbound: Creation complete after 6s [id=sgrule-3975727747]
-cloudflare_record.validate_tls["flury.org"]: Creating...
-aws_security_group_rule.lb_allow_inbound_https: Still creating... [10s elapsed]
-aws_lb.flurydotorg: Still creating... [10s elapsed]
-aws_security_group_rule.allow_inbound_ssh: Still creating... [10s elapsed]
-aws_security_group_rule.allow_outbound: Still creating... [10s elapsed]
-aws_security_group_rule.allow_inbound_http: Still creating... [10s elapsed]
-aws_security_group_rule.allow_inbound_ssh: Creation complete after 11s [id=sgrule-441259019]
-cloudflare_record.validate_tls["linkedin.flury.org"]: Creating...
-cloudflare_record.validate_tls["xn--rsum-bpad.flury.org"]: Creation complete after 6s [id=f6d5608e18870d58d3964e5e1954cd71]
-cloudflare_record.validate_tls["flury.org"]: Creation complete after 5s [id=37025fad879554bcc808f87a1434e269]
-aws_iam_instance_profile.flurydotorg: Creation complete after 17s [id=flurydotorg_instance_profile]
-aws_instance.flurydotorg: Creating...
-aws_security_group_rule.lb_allow_inbound_https: Creation complete after 11s [id=sgrule-2300754507]
 cloudflare_record.validate_tls["resume.flury.org"]: Still creating... [10s elapsed]
-cloudflare_record.validate_tls["message.flury.org"]: Still creating... [10s elapsed]
-cloudflare_record.validate_tls["linkedin.flury.org"]: Creation complete after 5s [id=b1860979df4565d2f64aad9636cba138]
-cloudflare_record.validate_tls["message.flury.org"]: Creation complete after 11s [id=0e368c2b8cb7c5104879c1f99ee34937]
-cloudflare_record.validate_tls["resume.flury.org"]: Creation complete after 11s [id=5f7a286b3408ea732a82e91b85931569]
+cloudflare_record.validate_tls["xn--rsum-bpad.flury.org"]: Still creating... [10s elapsed]
+cloudflare_record.validate_tls["www.flury.org"]: Creation complete after 10s [id=176171ce7e16c2afe3b8d970c70bc913]
+aws_security_group_rule.lb_allow_inbound_https: Creating...
+cloudflare_record.validate_tls["message.flury.org"]: Creation complete after 6s [id=01bb9c9ca47683478dbe8bfc3c3845da]
+cloudflare_record.validate_tls["flury.org"]: Creation complete after 10s [id=e3552286c37ffffe0184e91342db1a52]
+aws_lb.flurydotorg: Creating...
+cloudflare_record.validate_tls["resume.flury.org"]: Creation complete after 11s [id=39a351954a2e2f9ccfd538762531f395]
+cloudflare_record.validate_tls["xn--rsum-bpad.flury.org"]: Creation complete after 11s [id=a82d3a77e7988ff218eb43541f2cf72c]
 aws_acm_certificate_validation.flurydotorg: Creating...
-aws_security_group_rule.allow_outbound: Creation complete after 16s [id=sgrule-219627904]
-aws_lb.flurydotorg: Still creating... [20s elapsed]
-aws_security_group_rule.allow_inbound_http: Still creating... [20s elapsed]
-aws_instance.flurydotorg: Still creating... [10s elapsed]
-aws_security_group_rule.allow_inbound_http: Creation complete after 22s [id=sgrule-3218122097]
+aws_security_group_rule.allow_outbound: Creation complete after 6s [id=sgrule-2705000199]
+aws_iam_instance_profile.flurydotorg: Creation complete after 12s [id=flurydotorg_instance_profile]
+aws_instance.flurydotorg: Creating...
+aws_security_group_rule.allow_inbound_ssh: Still creating... [10s elapsed]
+aws_security_group_rule.allow_inbound_http: Still creating... [10s elapsed]
+aws_security_group_rule.lb_allow_outbound: Still creating... [10s elapsed]
+aws_security_group_rule.lb_allow_outbound: Creation complete after 11s [id=sgrule-804698908]
+aws_security_group_rule.allow_inbound_ssh: Creation complete after 12s [id=sgrule-2714857297]
+aws_security_group_rule.lb_allow_inbound_https: Creation complete after 6s [id=sgrule-2956197850]
+aws_security_group_rule.allow_inbound_http: Creation complete after 13s [id=sgrule-3624185629]
+aws_lb.flurydotorg: Still creating... [10s elapsed]
 aws_acm_certificate_validation.flurydotorg: Still creating... [10s elapsed]
-aws_lb.flurydotorg: Still creating... [30s elapsed]
-aws_instance.flurydotorg: Creation complete after 19s [id=i-0ebcbd3a63a0baac8]
+aws_instance.flurydotorg: Still creating... [10s elapsed]
+aws_acm_certificate_validation.flurydotorg: Creation complete after 17s [id=2022-01-04 16:08:30.947 +0000 UTC]
+aws_instance.flurydotorg: Creation complete after 18s [id=i-031821c11a4ff86c0]
 aws_lb_target_group_attachment.flurydotorg: Creating...
 cloudflare_record.address: Creating...
-aws_lb_target_group_attachment.flurydotorg: Creation complete after 0s [id=arn:aws:elasticloadbalancing:us-west-2:020963292585:targetgroup/flurydotorg/c6fbd7ce36ca6fd5-20220104003909461900000002]
-cloudflare_record.address: Creation complete after 1s [id=815182799f650c4b061bf9522434b8b3]
-aws_acm_certificate_validation.flurydotorg: Still creating... [20s elapsed]
+aws_lb_target_group_attachment.flurydotorg: Creation complete after 1s [id=arn:aws:elasticloadbalancing:us-west-2:020963292585:targetgroup/flurydotorg/8c0a07dcca97d8c8-20220104160837724000000002]
+aws_lb.flurydotorg: Still creating... [20s elapsed]
+cloudflare_record.address: Creation complete after 1s [id=d6219b32dee8699fe5a17d406089792e]
+aws_lb.flurydotorg: Still creating... [30s elapsed]
 aws_lb.flurydotorg: Still creating... [40s elapsed]
-aws_acm_certificate_validation.flurydotorg: Still creating... [30s elapsed]
-aws_acm_certificate_validation.flurydotorg: Creation complete after 31s [id=2022-01-04 00:39:22.651 +0000 UTC]
 aws_lb.flurydotorg: Still creating... [50s elapsed]
 aws_lb.flurydotorg: Still creating... [1m0s elapsed]
 aws_lb.flurydotorg: Still creating... [1m10s elapsed]
@@ -1024,30 +1024,29 @@ aws_lb.flurydotorg: Still creating... [1m30s elapsed]
 aws_lb.flurydotorg: Still creating... [1m40s elapsed]
 aws_lb.flurydotorg: Still creating... [1m50s elapsed]
 aws_lb.flurydotorg: Still creating... [2m0s elapsed]
-aws_lb.flurydotorg: Still creating... [2m10s elapsed]
-aws_lb.flurydotorg: Creation complete after 2m14s [id=arn:aws:elasticloadbalancing:us-west-2:020963292585:loadbalancer/app/flurydotorg-lb/70c8d5a3ecc8ec2e]
+aws_lb.flurydotorg: Creation complete after 2m4s [id=arn:aws:elasticloadbalancing:us-west-2:020963292585:loadbalancer/app/flurydotorg-lb/427b3f5bc8c965e2]
 cloudflare_record.flurydotorg: Creating...
 aws_lb_listener.flurydotorg_https: Creating...
-cloudflare_record.flurydotorg: Creation complete after 1s [id=850c2a6630e95cb1a0d27df4e81ef507]
-aws_lb_listener.flurydotorg_https: Creation complete after 1s [id=arn:aws:elasticloadbalancing:us-west-2:020963292585:listener/app/flurydotorg-lb/70c8d5a3ecc8ec2e/5899657bde1239a0]
+cloudflare_record.flurydotorg: Creation complete after 0s [id=99f45b8160654bc0799651a5ccc70ba8]
+aws_lb_listener.flurydotorg_https: Creation complete after 1s [id=arn:aws:elasticloadbalancing:us-west-2:020963292585:listener/app/flurydotorg-lb/427b3f5bc8c965e2/f0ec94a4d8182d00]
 
 Apply complete! Resources: 39 added, 0 changed, 0 destroyed.
-Warning: Permanently added '35.87.107.226' (ED25519) to the list of known hosts.
+Warning: Permanently added '35.88.242.200' (ED25519) to the list of known hosts.
 Hit:1 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal InRelease
 Get:2 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal-updates InRelease [114 kB]
 Get:3 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal-backports InRelease [108 kB]
 Get:4 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal/universe arm64 Packages [8458 kB]
 Get:5 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal/universe Translation-en [5124 kB]
-Get:6 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal/universe arm64 c-n-f Metadata [255 kB]
-Get:7 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal/multiverse arm64 Packages [114 kB]
-Get:8 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal/multiverse Translation-en [104 kB]
-Get:9 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal/multiverse arm64 c-n-f Metadata [8024 B]
-Get:10 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal-updates/main arm64 Packages [996 kB]
-Get:11 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal-updates/main Translation-en [283 kB]
-Get:12 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal-updates/main arm64 c-n-f Metadata [14.2 kB]
-Get:13 http://ports.ubuntu.com/ubuntu-ports focal-security InRelease [114 kB]
-Get:14 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal-updates/restricted arm64 Packages [3172 B]
-Get:15 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal-updates/restricted Translation-en [88.1 kB]
+Get:6 http://ports.ubuntu.com/ubuntu-ports focal-security InRelease [114 kB]
+Get:7 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal/universe arm64 c-n-f Metadata [255 kB]
+Get:8 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal/multiverse arm64 Packages [114 kB]
+Get:9 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal/multiverse Translation-en [104 kB]
+Get:10 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal/multiverse arm64 c-n-f Metadata [8024 B]
+Get:11 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal-updates/main arm64 Packages [1019 kB]
+Get:12 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal-updates/main Translation-en [287 kB]
+Get:13 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal-updates/main arm64 c-n-f Metadata [14.2 kB]
+Get:14 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal-updates/restricted arm64 Packages [3184 B]
+Get:15 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal-updates/restricted Translation-en [93.0 kB]
 Get:16 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal-updates/universe arm64 Packages [834 kB]
 Get:17 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal-updates/universe Translation-en [193 kB]
 Get:18 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal-updates/universe arm64 c-n-f Metadata [18.3 kB]
@@ -1065,16 +1064,16 @@ Get:29 http://us-west-2.ec2.ports.ubuntu.com/ubuntu-ports focal-backports/multiv
 Get:30 http://ports.ubuntu.com/ubuntu-ports focal-security/main arm64 Packages [704 kB]
 Get:31 http://ports.ubuntu.com/ubuntu-ports focal-security/main Translation-en [197 kB]
 Get:32 http://ports.ubuntu.com/ubuntu-ports focal-security/main arm64 c-n-f Metadata [8744 B]
-Get:33 http://ports.ubuntu.com/ubuntu-ports focal-security/restricted arm64 Packages [2976 B]
+Get:33 http://ports.ubuntu.com/ubuntu-ports focal-security/restricted arm64 Packages [2984 B]
 Get:34 http://ports.ubuntu.com/ubuntu-ports focal-security/restricted Translation-en [80.9 kB]
 Get:35 http://ports.ubuntu.com/ubuntu-ports focal-security/restricted arm64 c-n-f Metadata [116 B]
 Get:36 http://ports.ubuntu.com/ubuntu-ports focal-security/universe arm64 Packages [618 kB]
 Get:37 http://ports.ubuntu.com/ubuntu-ports focal-security/universe Translation-en [112 kB]
 Get:38 http://ports.ubuntu.com/ubuntu-ports focal-security/universe arm64 c-n-f Metadata [11.1 kB]
-Get:39 http://ports.ubuntu.com/ubuntu-ports focal-security/multiverse arm64 Packages [3052 B]
+Get:39 http://ports.ubuntu.com/ubuntu-ports focal-security/multiverse arm64 Packages [3044 B]
 Get:40 http://ports.ubuntu.com/ubuntu-ports focal-security/multiverse Translation-en [4948 B]
 Get:41 http://ports.ubuntu.com/ubuntu-ports focal-security/multiverse arm64 c-n-f Metadata [116 B]
-Fetched 18.7 MB in 2s (8301 kB/s)
+Fetched 18.7 MB in 2s (7772 kB/s)
 Reading package lists...
 
 **************************************************
@@ -1084,23 +1083,23 @@ Reading package lists...
 **************************************************
 
 
-PLAY [servers] *************************************************************************************************************************************************************
+PLAY [servers] *********************************************************************************************************
 
-TASK [Gathering Facts] *****************************************************************************************************************************************************
-ok: [35.87.107.226]
+TASK [Gathering Facts] *************************************************************************************************
+ok: [35.88.242.200]
 
-TASK [apt update] **********************************************************************************************************************************************************
-ok: [35.87.107.226]
+TASK [apt update] ******************************************************************************************************
+ok: [35.88.242.200]
 
-TASK [apt upgrade] *********************************************************************************************************************************************************
+TASK [apt upgrade] *****************************************************************************************************
 Calculating upgrade...
 The following NEW packages will be installed:
   distro-info libatasmart4 libblockdev-crypto2 libblockdev-fs2
   libblockdev-loop2 libblockdev-part-err2 libblockdev-part2 libblockdev-swap2
   libblockdev-utils2 libblockdev2 libjcat1 libnspr4 libnss3
   libparted-fs-resize0 libudisks2-0 libvolume-key1
-  linux-aws-5.11-headers-5.11.0-1022 linux-headers-5.11.0-1022-aws
-  linux-image-5.11.0-1022-aws linux-modules-5.11.0-1022-aws udisks2
+  linux-aws-5.11-headers-5.11.0-1023 linux-headers-5.11.0-1023-aws
+  linux-image-5.11.0-1023-aws linux-modules-5.11.0-1023-aws udisks2
 The following packages will be upgraded:
   accountsservice alsa-ucm-conf apport apt apt-utils base-files bind9-dnsutils
   bind9-host bind9-libs busybox-initramfs busybox-static ca-certificates
@@ -1128,21 +1127,21 @@ The following packages will be upgraded:
   ubuntu-release-upgrader-core udev ufw update-manager-core
   update-notifier-common vim vim-common vim-runtime vim-tiny wget xxd
 134 upgraded, 21 newly installed, 0 to remove and 0 not upgraded.
-changed: [35.87.107.226]
+changed: [35.88.242.200]
 
-TASK [check if reboot is required] *****************************************************************************************************************************************
-ok: [35.87.107.226]
+TASK [check if reboot is required] *************************************************************************************
+ok: [35.88.242.200]
 
-TASK [reboot if required] **************************************************************************************************************************************************
-skipping: [35.87.107.226]
+TASK [reboot if required] **********************************************************************************************
+skipping: [35.88.242.200]
 
-TASK [create user aflury] **************************************************************************************************************************************************
-changed: [35.87.107.226]
+TASK [create user aflury] **********************************************************************************************
+changed: [35.88.242.200]
 
-TASK [authorize users' keys] ***********************************************************************************************************************************************
-skipping: [35.87.107.226]
+TASK [authorize users' keys] *******************************************************************************************
+skipping: [35.88.242.200]
 
-TASK [install packages] ****************************************************************************************************************************************************
+TASK [install packages] ************************************************************************************************
 The following additional packages will be installed:
   fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0
   libjpeg-turbo8 libjpeg8 libnginx-mod-http-image-filter
@@ -1156,7 +1155,7 @@ The following NEW packages will be installed:
   libnginx-mod-http-xslt-filter libnginx-mod-mail libnginx-mod-stream libtiff5
   libwebp6 libxpm4 libxslt1.1 nginx nginx-common nginx-core
 0 upgraded, 18 newly installed, 0 to remove and 134 not upgraded.
-changed: [35.87.107.226] => (item=nginx)
+changed: [35.88.242.200] => (item=nginx)
 The following additional packages will be installed:
   libpython2-stdlib libpython2.7-minimal libpython2.7-stdlib python2-minimal
   python2.7 python2.7-minimal
@@ -1166,10 +1165,10 @@ The following NEW packages will be installed:
   libpython2-stdlib libpython2.7-minimal libpython2.7-stdlib python2
   python2-minimal python2.7 python2.7-minimal
 0 upgraded, 7 newly installed, 0 to remove and 134 not upgraded.
-changed: [35.87.107.226] => (item=python2)
-ok: [35.87.107.226] => (item=python3-apt)
+changed: [35.88.242.200] => (item=python2)
+ok: [35.88.242.200] => (item=python3-apt)
 
-TASK [copy sudoers] ********************************************************************************************************************************************************
+TASK [copy sudoers] ****************************************************************************************************
 --- before: /etc/sudoers
 +++ after: /Users/aflury/flurydotorg/ansible/files/sudoers
 @@ -6,9 +6,9 @@
@@ -1202,9 +1201,9 @@ TASK [copy sudoers] ************************************************************
  # See sudoers(5) for more information on "#include" directives:
  
 
-changed: [35.87.107.226]
+changed: [35.88.242.200]
 
-TASK [create /var/awslogs/etc] *********************************************************************************************************************************************
+TASK [create /var/awslogs/etc] *****************************************************************************************
 --- before
 +++ after
 @@ -1,4 +1,4 @@
@@ -1214,11 +1213,11 @@ TASK [create /var/awslogs/etc] *************************************************
 +    "state": "directory"
  }
 
-changed: [35.87.107.226]
+changed: [35.88.242.200]
 
-TASK [copy awslogs.conf] ***************************************************************************************************************************************************
+TASK [copy awslogs.conf] ***********************************************************************************************
 --- before
-+++ after: /Users/aflury/.ansible/tmp/ansible-local-89662j1e2_buk/tmp69r8h3qz/awslogs.conf
++++ after: /Users/aflury/.ansible/tmp/ansible-local-4682nnn2g2xk/tmptazqo7op/awslogs.conf
 @@ -0,0 +1,20 @@
 +[general]
 +# Path to the CloudWatch Logs agent's state file. The agent uses this file to maintain
@@ -1241,12 +1240,12 @@ TASK [copy awslogs.conf] *******************************************************
 +initial_position = end_of_file
 +log_group_name = flury-org
 
-changed: [35.87.107.226]
+changed: [35.88.242.200]
 
-TASK [copy awslogs-agent-setup.py] *****************************************************************************************************************************************
-skipping: [35.87.107.226]
+TASK [copy awslogs-agent-setup.py] *************************************************************************************
+skipping: [35.88.242.200]
 
-TASK [create htdocs] *******************************************************************************************************************************************************
+TASK [create htdocs] ***************************************************************************************************
 --- before
 +++ after
 @@ -1,4 +1,4 @@
@@ -1256,53 +1255,130 @@ TASK [create htdocs] ***********************************************************
 +    "state": "directory"
  }
 
-changed: [35.87.107.226]
+changed: [35.88.242.200]
 
-TASK [deploy htdocs files] *************************************************************************************************************************************************
+TASK [deploy htdocs files] *********************************************************************************************
 diff skipped: source file appears to be binary
-changed: [35.87.107.226] => (item=favicon.ico)
+changed: [35.88.242.200] => (item=favicon.ico)
 
-TASK [deploy htdocs templates] *********************************************************************************************************************************************
+TASK [deploy htdocs templates] *****************************************************************************************
 --- before
-+++ after: /Users/aflury/.ansible/tmp/ansible-local-89662j1e2_buk/tmppxo7p9ap/404.html
++++ after: /Users/aflury/.ansible/tmp/ansible-local-4682nnn2g2xk/tmp0t8l4dqc/404.html
 @@ -0,0 +1,3 @@
 +<html><head><title>Never Gonna Serve You Up</title></head><body>
 +I don't know what you're looking for, so here's Rick Astley.<br/>
 +<iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&controls=0&disablekb=1&fs=0&loop=1&modestbranding=1&playsinline=0" title="Never Gonna Serve You Up" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></body></html>
 
-changed: [35.87.107.226] => (item=404.html)
+changed: [35.88.242.200] => (item=404.html)
 --- before
-+++ after: /Users/aflury/.ansible/tmp/ansible-local-89662j1e2_buk/tmpwqx48bfb/index.html
++++ after: /Users/aflury/.ansible/tmp/ansible-local-4682nnn2g2xk/tmpputw6d3z/index.html
 @@ -0,0 +1 @@
 +<html><head><body bgcolor="black"></body></html>
 
-changed: [35.87.107.226] => (item=index.html)
+changed: [35.88.242.200] => (item=index.html)
 --- before
-+++ after: /Users/aflury/.ansible/tmp/ansible-local-89662j1e2_buk/tmp38p3fmkm/linkedin-301.html
++++ after: /Users/aflury/.ansible/tmp/ansible-local-4682nnn2g2xk/tmp6t79u7o4/linkedin-301.html
 @@ -0,0 +1 @@
 +<html><head><title>redirect</title><body>Click <a href="https://www.linkedin.com/in/andrew-flury-47815a/">here</a> (https://www.linkedin.com/in/andrew-flury-47815a/) if you are not redirected automatically.</body></html>
 
-changed: [35.87.107.226] => (item=linkedin-301.html)
+changed: [35.88.242.200] => (item=linkedin-301.html)
 --- before
-+++ after: /Users/aflury/.ansible/tmp/ansible-local-89662j1e2_buk/tmp549kabnj/message-301.html
++++ after: /Users/aflury/.ansible/tmp/ansible-local-4682nnn2g2xk/tmpt0l27lh2/message-301.html
 @@ -0,0 +1 @@
 +<html><head><title>redirect</title><body>Click <a href="https://www.linkedin.com/messaging/thread/new?recipient=andrew-flury-47815a">here</a> (https://www.linkedin.com/messaging/thread/new?recipient=andrew-flury-47815a) if you are not redirected automatically.</body></html>
 
-changed: [35.87.107.226] => (item=message-301.html)
+changed: [35.88.242.200] => (item=message-301.html)
 --- before
-+++ after: /Users/aflury/.ansible/tmp/ansible-local-89662j1e2_buk/tmp55e2xbqz/robots.txt
++++ after: /Users/aflury/.ansible/tmp/ansible-local-4682nnn2g2xk/tmp5wwyh3j0/robots.txt
 @@ -0,0 +1 @@
 +User-agent: * Disallow: /
 
-changed: [35.87.107.226] => (item=robots.txt)
+changed: [35.88.242.200] => (item=robots.txt)
 
-TASK [publish resume] ******************************************************************************************************************************************************
+TASK [publish resume] **************************************************************************************************
 diff skipped: source file size is greater than 104448
-changed: [35.87.107.226]
+changed: [35.88.242.200]
 
-TASK [nginx site config] ***************************************************************************************************************************************************
+TASK [nginx config] ****************************************************************************************************
 --- before
-+++ after: /Users/aflury/.ansible/tmp/ansible-local-89662j1e2_buk/tmpve0hr9t1/nginx-default
++++ after: /Users/aflury/flurydotorg/ansible/files/nginx.conf
+@@ -0,0 +1,70 @@
++user www-data;
++worker_processes auto;
++pid /run/nginx.pid;
++include /etc/nginx/modules-enabled/*.conf;
++
++events {
++	worker_connections 768;
++	# multi_accept on;
++}
++
++http {
++
++	##
++	# Basic Settings
++	##
++
++	sendfile on;
++	tcp_nopush on;
++	tcp_nodelay on;
++	keepalive_timeout 65;
++	types_hash_max_size 2048;
++	# server_names_hash_bucket_size 64;
++	# server_name_in_redirect off;
++
++	include /etc/nginx/mime.types;
++	default_type application/octet-stream;
++
++	##
++	# SSL Settings
++	##
++
++	ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; # Dropping SSLv3, ref: POODLE
++	ssl_prefer_server_ciphers on;
++
++	##
++	# Logging Settings
++	##
++
++        log_format combined_with_host '$remote_addr - $remote_user [$time_local] '
++                                      '"$http_host" "$request" $status $body_bytes_sent '
++                                      '"$http_referer" "$http_user_agent"';
++        access_log /var/log/nginx/access.log combined_with_host;
++	error_log /var/log/nginx/error.log;
++
++	gzip on;
++	include /etc/nginx/conf.d/*.conf;
++	include /etc/nginx/sites-enabled/*;
++}
++
++
++#mail {
++#	# See sample authentication script at:
++#	# http://wiki.nginx.org/ImapAuthenticateWithApachePhpScript
++# 
++#	# auth_http localhost/auth.php;
++#	# pop3_capabilities "TOP" "USER";
++#	# imap_capabilities "IMAP4rev1" "UIDPLUS";
++# 
++#	server {
++#		listen     localhost:110;
++#		protocol   pop3;
++#		proxy      on;
++#	}
++# 
++#	server {
++#		listen     localhost:143;
++#		protocol   imap;
++#		proxy      on;
++#	}
++#}
+
+changed: [35.88.242.200]
+
+TASK [nginx site config] ***********************************************************************************************
+--- before
++++ after: /Users/aflury/.ansible/tmp/ansible-local-4682nnn2g2xk/tmpj6yk1mb5/nginx-default
 @@ -0,0 +1,54 @@
 +server_names_hash_bucket_size 128;
 +
@@ -1359,16 +1435,16 @@ TASK [nginx site config] *******************************************************
 +	}
 +}
 
-changed: [35.87.107.226]
+changed: [35.88.242.200]
 
-RUNNING HANDLER [restart awslogs] ******************************************************************************************************************************************
-skipping: [35.87.107.226]
+RUNNING HANDLER [restart awslogs] **************************************************************************************
+skipping: [35.88.242.200]
 
-RUNNING HANDLER [reload nginx] *********************************************************************************************************************************************
-skipping: [35.87.107.226]
+RUNNING HANDLER [reload nginx] *****************************************************************************************
+skipping: [35.88.242.200]
 
-PLAY RECAP *****************************************************************************************************************************************************************
-35.87.107.226              : ok=14   changed=11   unreachable=0    failed=0    skipped=5    rescued=0    ignored=0   
+PLAY RECAP *************************************************************************************************************
+35.88.242.200              : ok=15   changed=12   unreachable=0    failed=0    skipped=5    rescued=0    ignored=0   
 
 
 
@@ -1380,93 +1456,96 @@ Does everything look OK? [y]es/no YES
 **
 **************************************************
 
-+ ansible-playbook -b --key-file /Users/aflury/flurydotorg/ssh-key -u ubuntu -i /var/folders/38/flkkyh256hz4bm001x1d6gsw0000gp/T/tmp.kSqTFqJ7 --extra-vars 'linkedin_profile='\''andrew-flury-47815a'\'' resume_file='\''/Users/aflury/Documents/Resume-Andrew-Flury.pdf'\'' resume_base='\''Resume-Andrew-Flury.pdf'\'' domain='\''flury.org'\'' symbolic_name='\''flury-org'\''' ansible/playbook.yml
++ ansible-playbook -b --key-file /Users/aflury/flurydotorg/ssh-key -u ubuntu -i /var/folders/38/flkkyh256hz4bm001x1d6gsw0000gp/T/tmp.qXwS2OHQ --extra-vars 'linkedin_profile='\''andrew-flury-47815a'\'' resume_file='\''/Users/aflury/Documents/Resume-Andrew-Flury.pdf'\'' resume_base='\''Resume-Andrew-Flury.pdf'\'' domain='\''flury.org'\'' symbolic_name='\''flury-org'\''' ansible/playbook.yml
 
-PLAY [servers] *************************************************************************************************************************************************************
+PLAY [servers] *********************************************************************************************************
 
-TASK [Gathering Facts] *****************************************************************************************************************************************************
-ok: [35.87.107.226]
+TASK [Gathering Facts] *************************************************************************************************
+ok: [35.88.242.200]
 
-TASK [apt update] **********************************************************************************************************************************************************
-ok: [35.87.107.226]
+TASK [apt update] ******************************************************************************************************
+ok: [35.88.242.200]
 
-TASK [apt upgrade] *********************************************************************************************************************************************************
-changed: [35.87.107.226]
+TASK [apt upgrade] *****************************************************************************************************
+changed: [35.88.242.200]
 
-TASK [check if reboot is required] *****************************************************************************************************************************************
-ok: [35.87.107.226]
+TASK [check if reboot is required] *************************************************************************************
+ok: [35.88.242.200]
 
-TASK [reboot if required] **************************************************************************************************************************************************
-changed: [35.87.107.226]
+TASK [reboot if required] **********************************************************************************************
+changed: [35.88.242.200]
 
-TASK [create user aflury] **************************************************************************************************************************************************
-changed: [35.87.107.226]
+TASK [create user aflury] **********************************************************************************************
+changed: [35.88.242.200]
 
-TASK [authorize users' keys] ***********************************************************************************************************************************************
-changed: [35.87.107.226]
+TASK [authorize users' keys] *******************************************************************************************
+changed: [35.88.242.200]
 
-TASK [install packages] ****************************************************************************************************************************************************
-changed: [35.87.107.226] => (item=nginx)
-changed: [35.87.107.226] => (item=python2)
-ok: [35.87.107.226] => (item=python3-apt)
+TASK [install packages] ************************************************************************************************
+changed: [35.88.242.200] => (item=nginx)
+changed: [35.88.242.200] => (item=python2)
+ok: [35.88.242.200] => (item=python3-apt)
 
-TASK [copy sudoers] ********************************************************************************************************************************************************
-changed: [35.87.107.226]
+TASK [copy sudoers] ****************************************************************************************************
+changed: [35.88.242.200]
 
-TASK [create /var/awslogs/etc] *********************************************************************************************************************************************
-changed: [35.87.107.226]
+TASK [create /var/awslogs/etc] *****************************************************************************************
+changed: [35.88.242.200]
 
-TASK [copy awslogs.conf] ***************************************************************************************************************************************************
-changed: [35.87.107.226]
+TASK [copy awslogs.conf] ***********************************************************************************************
+changed: [35.88.242.200]
 
-TASK [copy awslogs-agent-setup.py] *****************************************************************************************************************************************
-changed: [35.87.107.226]
+TASK [copy awslogs-agent-setup.py] *************************************************************************************
+changed: [35.88.242.200]
 
-TASK [create htdocs] *******************************************************************************************************************************************************
-changed: [35.87.107.226]
+TASK [create htdocs] ***************************************************************************************************
+changed: [35.88.242.200]
 
-TASK [deploy htdocs files] *************************************************************************************************************************************************
-changed: [35.87.107.226] => (item=favicon.ico)
+TASK [deploy htdocs files] *********************************************************************************************
+changed: [35.88.242.200] => (item=favicon.ico)
 
-TASK [deploy htdocs templates] *********************************************************************************************************************************************
-changed: [35.87.107.226] => (item=404.html)
-changed: [35.87.107.226] => (item=index.html)
-changed: [35.87.107.226] => (item=linkedin-301.html)
-changed: [35.87.107.226] => (item=message-301.html)
-changed: [35.87.107.226] => (item=robots.txt)
+TASK [deploy htdocs templates] *****************************************************************************************
+changed: [35.88.242.200] => (item=404.html)
+changed: [35.88.242.200] => (item=index.html)
+changed: [35.88.242.200] => (item=linkedin-301.html)
+changed: [35.88.242.200] => (item=message-301.html)
+changed: [35.88.242.200] => (item=robots.txt)
 
-TASK [publish resume] ******************************************************************************************************************************************************
-changed: [35.87.107.226]
+TASK [publish resume] **************************************************************************************************
+changed: [35.88.242.200]
 
-TASK [nginx site config] ***************************************************************************************************************************************************
-changed: [35.87.107.226]
+TASK [nginx config] ****************************************************************************************************
+changed: [35.88.242.200]
 
-RUNNING HANDLER [run awslogs-agent-setup.py] *******************************************************************************************************************************
-changed: [35.87.107.226]
+TASK [nginx site config] ***********************************************************************************************
+changed: [35.88.242.200]
 
-RUNNING HANDLER [restart awslogs] ******************************************************************************************************************************************
-changed: [35.87.107.226]
+RUNNING HANDLER [run awslogs-agent-setup.py] ***************************************************************************
+changed: [35.88.242.200]
 
-RUNNING HANDLER [reload nginx] *********************************************************************************************************************************************
-changed: [35.87.107.226]
+RUNNING HANDLER [restart awslogs] **************************************************************************************
+changed: [35.88.242.200]
 
-PLAY RECAP *****************************************************************************************************************************************************************
-35.87.107.226              : ok=20   changed=17   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+RUNNING HANDLER [reload nginx] *****************************************************************************************
+changed: [35.88.242.200]
 
-|16:45:41|aflury@aflury:[flurydotorg]> ssh ec2.flury.org uptime
-The authenticity of host 'ec2.flury.org (35.87.107.226)' can't be established.
-ED25519 key fingerprint is SHA256:0ieqlbaoz16rSsSbao2o0aLPdCjr3mRaIwpi5me741s.
-This host key is known by the following other names/addresses:
-    ~/.ssh/known_hosts:266: 35.87.107.226
-Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-Warning: Permanently added 'ec2.flury.org' (ED25519) to the list of known hosts.
- 00:52:02 up 7 min,  0 users,  load average: 0.00, 0.03, 0.01
-|16:52:02|aflury@aflury:[flurydotorg]> curl -s https://linkedin.flury.org
-<html><head><title>redirect</title><body>Click <a href="https://www.linkedin.com/in/andrew-flury-47815a/">here</a> (https://www.linkedin.com/in/andrew-flury-47815a/) if you are not redirected automatically.</body></html>
-|16:52:12|aflury@aflury:[flurydotorg]> curl -s https://message.flury.org
-<html><head><title>redirect</title><body>Click <a href="https://www.linkedin.com/messaging/thread/new?recipient=andrew-flury-47815a">here</a> (https://www.linkedin.com/messaging/thread/new?recipient=andrew-flury-47815a) if you are not redirected automatically.</body></html>
-|16:52:19|aflury@aflury:[flurydotorg]> curl -s https://res''ume.flury.org | file -
-/dev/stdin: PDF document, version 1.7, 3 pages
-|16:52:26|aflury@aflury:[flurydotorg]> WEAK HIRE!
+PLAY RECAP *************************************************************************************************************
+35.88.242.200              : ok=21   changed=18   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+
+**************************************************
+**
+**  ALL DONE! Running some tests (Ctrl+C to skip)
+**
+**************************************************
+
+Sleeping for 5 minutes first. It can take a while for DNS to settle. :(
+Done waiting...
+Testing https://linkedin.flury.org for redirect... OK
+Testing https://message.flury.org for redirect... OK
+Testing https://resume.[...] for PDF... OK
+Testing https://xn--rsum-bpad.[...] for PDF... OK
+Success!
+|08:20:14|aflury@aflury:[flurydotorg]> Weak hire!
 ```
 </details>

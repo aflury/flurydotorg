@@ -55,7 +55,7 @@ echo '**  Running terraform apply'
 echo '**'
 echo '**************************************************'
 echo
-terraform apply
+$terraform
 # We only need the public IP address to avoid waiting for ec2.$domain's address record to update.
 ec2_ip=`terraform show | awk '$1 ~ /public_ip/ && $3 ~ /[0-9]+\./ {print $3}' | sed -e 's/"//g'`
 cd ..
@@ -114,3 +114,57 @@ echo '**'
 echo '**************************************************'
 echo
 bash -cx "$playbook"
+
+
+echo
+echo '**************************************************'
+echo '**'
+echo '**  ALL DONE! Running some tests (Ctrl+C to skip)'
+echo '**'
+echo '**************************************************'
+echo
+
+
+echo 'Sleeping for 5 minutes first. It can take a while for DNS to settle. :('
+sleep 300
+echo 'Done waiting...'
+failed=0
+
+for url in https://linkedin.$DOMAIN https://message.$DOMAIN
+do
+  echo -n "Testing $url for redirect... "
+  if curl -s $url | grep -q 'https://www.linkedin.com/.*redirected automatically'
+  then
+    echo 'OK'
+  else
+    echo 'FAILED!'
+    failed=1
+  fi
+done
+
+for url in https://resume https://xn--rsum-bpad
+do
+  echo -n "Testing $url.[...] for PDF... "
+  url="$url.$DOMAIN"
+  if curl -s $url | file - | grep -q 'PDF.*pages'
+  then
+    echo 'OK'
+  else
+    echo 'FAILED!'
+    failed=1
+  fi
+done
+
+if [ "$failed" = "1" ]
+then
+  echo
+  echo 'FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!'
+  echo 'FAIL!'
+  echo 'FAIL!  TESTS DID NOT PASS! I NEED A HUMAN!!!'
+  echo 'FAIL!'
+  echo 'FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!'
+  echo
+  exit 1
+else
+  echo 'Success!'
+fi
