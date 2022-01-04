@@ -46,6 +46,12 @@
         owner=root
         group=root
 
+    - name: "create /var/awslogs/etc"
+      file:
+        path: /var/awslogs/etc
+        state: directory
+        mode: 0755
+
     - name: "copy awslogs.conf"
       template:
         src=awslogs.conf
@@ -111,8 +117,9 @@
 
   handlers:
     - name: "run awslogs-agent-setup.py"
-      shell:
-        cmd: "python2 /root/awslogs-agent-setup.py --region us-west-2 -n --config /var/awslogs/etc/awslogs.conf"
+      shell: |
+        cp /var/awslogs/etc/awslogs.conf /root/.awslogs.conf.$$
+        python2 /root/awslogs-agent-setup.py --region us-west-2 -n --config /root/.awslogs.conf.$$
 
     - name: "restart awslogs"
       service: name=awslogs state=restarted  # Maybe `reloaded` works but I don't trust it.
