@@ -109,11 +109,17 @@
         owner=root
         group=root
  
+    - name: "nginx config"
+      copy:
+        src=nginx.conf
+        dest=/etc/nginx/nginx.conf
+      notify: "reload nginx"
+
     - name: "nginx site config"
       template:
         src=nginx-default
         dest=/etc/nginx/sites-available/default
-      notify: reload nginx
+      notify: "reload nginx"
 
   handlers:
     - name: "run awslogs-agent-setup.py"
