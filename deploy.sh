@@ -158,10 +158,13 @@ done
 if [ "$failed" = "1" ]
 then
   echo
+  banner -w 60 fail
+  echo
+  echo
   echo 'FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!'
-  echo 'FAIL!'
-  echo 'FAIL!  TESTS DID NOT PASS! I NEED A HUMAN!!!'
-  echo 'FAIL!'
+  echo 'FAIL!                                        FAIL!'
+  echo 'FAIL!  TESTS DID NOT PASS! I NEED A HUMAN!!  FAIL!'
+  echo 'FAIL!                                        FAIL!'
   echo 'FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!'
   echo
   exit 1
