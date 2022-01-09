@@ -17,7 +17,7 @@ variable "flurydotorg_subnet_1" {
   default     = "subnet-23602f45"
 }
 
-# This subnet only exists because the ALB wants to endpoints.
+# This subnet only exists because the ALB wants two endpoints.
 # We don't care about redundancy right now so it's only actually running on the primary.
 variable "flurydotorg_subnet_2" {
   description = "second (down) subnet"
