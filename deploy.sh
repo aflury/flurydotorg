@@ -98,7 +98,7 @@ if [ "$force" != 1 ]
   bash -c "$playbook -CD"
   echo
   echo
-  read -p "Does everything look OK? [y]es/no " yesno
+  read -p "Does everything look OK? yes/no " yesno
   if ! echo "$yesno" | grep -Eiq '^y($|es)$'
   then
     echo 'Abort!'
