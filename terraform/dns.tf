@@ -29,6 +29,15 @@ resource "cloudflare_record" "linkedin" {
   ttl     = 1
 }
 
+resource "cloudflare_record" "chat" {
+  zone_id = cloudflare_zone.flurydotorg.id
+  name    = "chat"
+  value   = var.domain
+  type    = "CNAME"
+  proxied = true
+  ttl     = 1
+}
+
 resource "cloudflare_record" "message" {
   zone_id = cloudflare_zone.flurydotorg.id
   name    = "message"

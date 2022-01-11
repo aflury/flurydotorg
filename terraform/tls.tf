@@ -2,6 +2,7 @@ resource "aws_acm_certificate" "flurydotorg" {
   domain_name       = var.domain
   validation_method = "DNS"
   subject_alternative_names = [
+    "chat.${var.domain}",
     "linkedin.${var.domain}",
     "message.${var.domain}",
     "resume.${var.domain}",

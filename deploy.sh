@@ -130,7 +130,7 @@ sleep 300
 echo 'Done waiting...'
 failed=0
 
-for url in https://linkedin.$DOMAIN https://message.$DOMAIN
+for url in https://linkedin.$DOMAIN https://message.$DOMAIN https://chat.$DOMAIN
 do
   echo -n "Testing $url for redirect... "
   if curl -s $url | grep -q 'https://www.linkedin.com/.*redirected automatically'

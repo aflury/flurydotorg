@@ -32,7 +32,7 @@ server {
 server {
         listen 80;
         listen [::]:80;
-        server_name message.{{domain}};
+        server_name message.{{domain}} chat.{{domain}};
         root /flurydotorg/htdocs;
         error_page 301 /message-301.html;
         error_page 404 /404.html;
