@@ -5,7 +5,11 @@
 # Wrapper around `terraform apply` and `ansible-playbook`.
 #
 
-set -e  # fail on errors
+# Fail on errors.
+set -e
+
+# Run in script's working directory.
+cd -- `dirname -- "${BASH_SOURCE[0]}"`
 
 . config.sh
 
@@ -45,7 +49,7 @@ export TF_VAR_dmarc_cname=$DMARC_CNAME
 export TF_VAR_symbolic_name=$SYMBOLIC_NAME
 export TF_VAR_aws_account_id=`aws iam get-user --output text | awk '{print $2}' | awk -F: '{print $5}'`
 
-cd terraform 
+cd terraform
 terraform="terraform apply"
 [ "$force" == "1" ] && terraform="$terraform -auto-approve"
 echo
