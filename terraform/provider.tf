@@ -8,7 +8,7 @@ terraform {
       version = "~> 3.0"
     }
   }
-  required_version = "=1.1.2"
+  required_version = "~> 1.1.0"
 
   backend "s3" {
     # bucket is set by `terraform init`.
