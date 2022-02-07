@@ -6,6 +6,7 @@ resource "aws_acm_certificate" "flurydotorg" {
     "linkedin.${var.domain}",
     "message.${var.domain}",
     "resume.${var.domain}",
+    "source.${var.domain}",
     "www.${var.domain}",
     "xn--rsum-bpad.${var.domain}"
   ]

@@ -42,6 +42,18 @@ server {
 }
 
 server {
+        listen 80;
+        listen [::]:80;
+        server_name source.{{domain}};
+        root /flurydotorg/htdocs;
+        error_page 301 /source-301.html;
+        error_page 404 /404.html;
+        location = / {
+                return 301 "https://github.com/aflury/flurydotorg";
+        }
+}
+
+server {
 	listen 80;
 	listen [::]:80;
 	server_name resume.{{domain}} xn--rsum-bpad.{{domain}};
