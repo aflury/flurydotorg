@@ -1541,10 +1541,44 @@ PLAY RECAP *********************************************************************
 
 Sleeping for 5 minutes first. It can take a while for DNS to settle. :(
 Done waiting...
-Testing https://linkedin.flury.org for redirect... OK
-Testing https://message.flury.org for redirect... OK
-Testing https://resume.[...] for PDF... OK
-Testing https://xn--rsum-bpad.[...] for PDF... OK
+
+Running 'source' test...
++ curl -s https://source.flury.org
++ eval grep -q https://github.com/aflury/flurydotorg
+++ grep -q https://github.com/aflury/flurydotorg
+OK
+
+Running 'linkedin' test...
++ curl -s https://linkedin.flury.org
++ eval grep -q 'https://www.linkedin.com/.*redirected'
+++ grep -q 'https://www.linkedin.com/.*redirected'
+OK
+
+Running 'message' test...
++ curl -s https://message.flury.org
++ eval grep -q 'https://www.linkedin.com/.*redirected'
+++ grep -q 'https://www.linkedin.com/.*redirected'
+OK
+
+Running 'resume' test...
++ curl -s https://resume.flury.org
++ eval file - '|' grep -q ''\''PDF.*pages'\'''
+++ file -
+++ grep -q 'PDF.*pages'
+OK
+
+Running 'chat' test...
++ curl -s https://chat.flury.org
++ eval grep -q 'https://www.linkedin.com/.*redirected'
+++ grep -q 'https://www.linkedin.com/.*redirected'
+OK
+
+Running 'xn--rsum-bpad' test...
++ curl -s https://xn--rsum-bpad.flury.org
++ eval file - '|' grep -q ''\''PDF.*pages'\'''
+++ file -
+++ grep -q 'PDF.*pages'
+OK
 Success!
 |08:20:14|aflury@aflury:[flurydotorg]> Weak hire!
 ```

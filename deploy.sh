@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Deploy the stuff!
 #
@@ -7,6 +7,16 @@
 
 # Fail on errors.
 set -e
+
+
+if echo "$BASH_VERSION" | grep -q '^[0-3]\.'
+then
+  echo "I need a bash version that supports associative arrays (>= 4.x)"
+  echo "If you're on MacOS, try installing bash from homebrew: brew install bash"
+  exit 1
+fi
+
+declare -A tests
 
 # Run in script's working directory.
 cd -- `dirname -- "${BASH_SOURCE[0]}"`
@@ -134,26 +144,28 @@ sleep 300
 echo 'Done waiting...'
 failed=0
 
-for url in https://linkedin.$DOMAIN https://message.$DOMAIN https://chat.$DOMAIN
-do
-  echo -n "Testing $url for redirect... "
-  if curl -s $url | grep -q 'https://www.linkedin.com/.*redirected automatically'
-  then
-    echo 'OK'
-  else
-    echo 'FAILED!'
-    failed=1
-  fi
-done
 
-for url in https://resume https://xn--rsum-bpad
+linkedin_test="grep -q https://www.linkedin.com/.*redirected"
+pdf_test="file - | grep -q 'PDF.*pages'"
+github_test="grep -q https://github.com/aflury/flurydotorg"
+
+tests[chat]=$linkedin_test
+tests[linkedin]=$linkedin_test
+tests[message]=$linkedin_test
+tests[resume]=$pdf_test
+tests[source]=$github_test
+tests[xn--rsum-bpad]=$pdf_test
+
+for subdomain in "${!tests[@]}"
 do
-  echo -n "Testing $url.[...] for PDF... "
-  url="$url.$DOMAIN"
-  if curl -s $url | file - | grep -q 'PDF.*pages'
+  echo
+  echo "Running '$subdomain' test..."
+  if ( set -x && curl -s https://$subdomain.$DOMAIN | eval ${tests[$subdomain]} )
   then
+    set +x
     echo 'OK'
   else
+    set +x
     echo 'FAILED!'
     failed=1
   fi
