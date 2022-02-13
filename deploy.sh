@@ -9,6 +9,13 @@
 set -e
 
 
+# Check dependencies.
+if ! `which -s jq`
+then
+  echo "I need jq (json query) to run."
+  echo "If you're on MacOS, try installing jq from homebrew: brew install jq"
+  exit 1
+fi
 if echo "$BASH_VERSION" | grep -q '^[0-3]\.'
 then
   echo "I need a bash version that supports associative arrays (>= 4.x)"
@@ -71,7 +78,8 @@ echo '**************************************************'
 echo
 $terraform
 # We only need the public IP address to avoid waiting for ec2.$domain's address record to update.
-ec2_ip=`terraform show | awk '$1 ~ /public_ip/ && $3 ~ /[0-9]+\./ {print $3}' | sed -e 's/"//g'`
+jq_query='.values.root_module.resources[] | select(.address=="aws_eip.flurydotorg").values.public_ip'
+ec2_ip=`terraform show -json | jq "$jq_query" | sed -e 's/"//g'`
 cd ..
 
 SSH="ssh -o StrictHostKeyChecking=no -i `pwd`/ssh-key ubuntu@$ec2_ip"

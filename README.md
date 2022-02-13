@@ -20,6 +20,7 @@ it could help if you're trying to use terraform/ansible to set up personal domai
 
 - terraform 1.1.2: https://www.terraform.io/downloads.html or via homebrew etc.
 - ansible-playbook: `pip install ansible`.
+- jq: `brew install jq`
 - ssh private key.
 - `config.sh`; create based off example file.
 
