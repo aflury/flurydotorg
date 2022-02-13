@@ -123,7 +123,7 @@ resource "cloudflare_record" "selector2" {
 resource "cloudflare_record" "spf" {
   zone_id = cloudflare_zone.flurydotorg.id
   name    = "${var.domain}."
-  value   = "v=spf1 include:spf.protection.outlook.com -all"
+  value   = "v=spf1 exists:%\\{i\\}._i.%\\{d\\}._d.espf.agari.com include:%\\{d\\}.01.spf-protect.agari.com -all"
   type    = "TXT"
   proxied = false
   ttl     = 300
