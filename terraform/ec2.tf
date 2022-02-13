@@ -105,6 +105,11 @@ resource "aws_instance" "flurydotorg" {
   iam_instance_profile   = aws_iam_instance_profile.flurydotorg.name
 }
 
+resource "aws_eip" "flurydotorg" {
+  instance = aws_instance.flurydotorg.id
+  vpc      = true
+}
+
 resource "aws_lb" "flurydotorg" {
   name               = "flurydotorg-lb"
   subnets            = [var.flurydotorg_subnet_1, var.flurydotorg_subnet_2]

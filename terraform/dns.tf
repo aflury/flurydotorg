@@ -77,7 +77,7 @@ resource "cloudflare_record" "resume_" {
 resource "cloudflare_record" "address" {
   zone_id = cloudflare_zone.flurydotorg.id
   name    = "ec2"
-  value   = aws_instance.flurydotorg.public_ip
+  value   = aws_eip.flurydotorg.public_ip
   type    = "A"
   proxied = false
   ttl     = 300
