@@ -1565,7 +1565,7 @@ Running 'message' test...
 OK
 
 Running 'resume' test...
-+ curl -s https://resume.flury.org
++ curl -s https://resume.flurydotorg
 + eval file - '|' grep -q ''\''PDF.*pages'\'''
 ++ file -
 ++ grep -q 'PDF.*pages'
@@ -1578,7 +1578,7 @@ Running 'chat' test...
 OK
 
 Running 'xn--rsum-bpad' test...
-+ curl -s https://xn--rsum-bpad.flury.org
++ curl -s https://xn--rsum-bpad.flurydotorg
 + eval file - '|' grep -q ''\''PDF.*pages'\'''
 ++ file -
 ++ grep -q 'PDF.*pages'
