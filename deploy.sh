@@ -158,6 +158,7 @@ pdf_test="file - | grep -q 'PDF.*pages'"
 github_test="grep -q https://github.com/aflury/flurydotorg"
 
 tests[chat]=$linkedin_test
+tests[cv]=$pdf_test
 tests[linkedin]=$linkedin_test
 tests[message]=$linkedin_test
 tests[resume]=$pdf_test

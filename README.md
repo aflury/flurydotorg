@@ -1577,6 +1577,13 @@ Running 'chat' test...
 ++ grep -q 'https://www.linkedin.com/.*redirected'
 OK
 
+Running 'cv' test...
++ curl -s https://cv.flurydotorg
++ eval file - '|' grep -q ''\''PDF.*pages'\'''
+++ file -
+++ grep -q 'PDF.*pages'
+OK
+
 Running 'xn--rsum-bpad' test...
 + curl -s https://xn--rsum-bpad.flurydotorg
 + eval file - '|' grep -q ''\''PDF.*pages'\'''

@@ -38,6 +38,15 @@ resource "cloudflare_record" "chat" {
   ttl     = 1
 }
 
+resource "cloudflare_record" "cv" {
+  zone_id = cloudflare_zone.flurydotorg.id
+  name    = "cv"
+  value   = var.domain
+  type    = "CNAME"
+  proxied = true
+  ttl     = 1
+}
+
 resource "cloudflare_record" "source" {
   zone_id = cloudflare_zone.flurydotorg.id
   name    = "source"
