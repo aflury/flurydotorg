@@ -3,8 +3,8 @@
 Makes a flury.org. Just a personal domain with a little static content and some redirects and DNS stuff.
 
 This is a public repo because it's hosting files that say I'm good at computers and security, and I like irony.
-It looks more sensitive than it is though. I think. It probably isn't super useful to other people as-is, but
-it could help if you're trying to use terraform/ansible to set up personal domain hosting. Maybe? Not likely.
+It looks more sensitive than it is though. I think. It isn't super useful to other people as-is, but it could
+potentially help if you're trying to use terraform/ansible to set up personal domain hosting.
 
 ![network diagram](flurydotorg.drawio.png)
 
@@ -21,7 +21,7 @@ it could help if you're trying to use terraform/ansible to set up personal domai
 
 ## Prerequisites
 
-- terraform 1.1.2: https://www.terraform.io/downloads.html or via homebrew etc.
+- terraform 1.1.x: https://www.terraform.io/downloads.html or via homebrew etc.
 - ansible-playbook: `pip install ansible`.
 - jq: `brew install jq`
 - ssh private key.
