@@ -9,3 +9,4 @@ export SYMBOLIC_NAME=example-net
 export DMARC_CNAME=nonexistent.example.net
 export RESUME_FILE=/Users/user/Documents/resume.pdf
 export LINKEDIN_PROFILE=obedient-worker-123
+export PHONE=1-650-555-1234

@@ -104,8 +104,14 @@ playbook="ansible-playbook \
  --key-file `pwd`/ssh-key \
  -u ubuntu \
  -i $hosts \
- --extra-vars \"linkedin_profile='$LINKEDIN_PROFILE' resume_file='$RESUME_FILE' resume_base='`basename $RESUME_FILE`' domain='$DOMAIN' symbolic_name='$SYMBOLIC_NAME'\" \
- ansible/playbook.yml \
+ --extra-vars \"\
+linkedin_profile='$LINKEDIN_PROFILE' \
+resume_file='$RESUME_FILE' \
+resume_base='`basename $RESUME_FILE`' \
+domain='$DOMAIN' \
+symbolic_name='$SYMBOLIC_NAME' \
+phone='$PHONE'\" \
+  ansible/playbook.yml \
 "
 
 if [ "$force" != 1 ]
@@ -156,13 +162,17 @@ failed=0
 linkedin_test="grep -q https://www.linkedin.com/.*redirected"
 pdf_test="file - | grep -q 'PDF.*pages'"
 github_test="grep -q https://github.com/aflury/flurydotorg"
+call_test="grep -q tel:[0-9\+]"
+text_test="grep -q sms:[0-9\+]"
 
+tests[call]=$call_test
 tests[chat]=$linkedin_test
 tests[cv]=$pdf_test
 tests[linkedin]=$linkedin_test
 tests[message]=$linkedin_test
 tests[resume]=$pdf_test
 tests[source]=$github_test
+tests[text]=$text_test
 tests[xn--rsum-bpad]=$pdf_test
 
 for subdomain in "${!tests[@]}"

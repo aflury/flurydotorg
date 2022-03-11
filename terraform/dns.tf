@@ -29,6 +29,15 @@ resource "cloudflare_record" "linkedin" {
   ttl     = 1
 }
 
+resource "cloudflare_record" "call" {
+  zone_id = cloudflare_zone.flurydotorg.id
+  name    = "call"
+  value   = var.domain
+  type    = "CNAME"
+  proxied = true
+  ttl     = 1
+}
+
 resource "cloudflare_record" "chat" {
   zone_id = cloudflare_zone.flurydotorg.id
   name    = "chat"
@@ -77,6 +86,15 @@ resource "cloudflare_record" "resume" {
 resource "cloudflare_record" "resume_" {
   zone_id = cloudflare_zone.flurydotorg.id
   name    = "xn--rsum-bpad"
+  value   = var.domain
+  type    = "CNAME"
+  proxied = true
+  ttl     = 1
+}
+
+resource "cloudflare_record" "text" {
+  zone_id = cloudflare_zone.flurydotorg.id
+  name    = "text"
   value   = var.domain
   type    = "CNAME"
   proxied = true
