@@ -10,7 +10,7 @@ set -e
 
 
 # Check dependencies.
-if ! `which -s jq`
+if ! which jq > /dev/null
 then
   echo "I need jq (json query) to run."
   echo "If you're on MacOS, try installing jq from homebrew: brew install jq"
@@ -160,7 +160,7 @@ failed=0
 
 
 linkedin_test="grep -q https://www.linkedin.com/.*redirected"
-pdf_test="file - | grep -q 'PDF.*pages'"
+pdf_test="file - | grep -q 'PDF document'"
 github_test="grep -q https://github.com/aflury/flurydotorg"
 call_test="grep -q tel:[0-9\+]"
 text_test="grep -q sms:[0-9\+]"
@@ -193,7 +193,7 @@ done
 if [ "$failed" = "1" ]
 then
   echo
-  banner -w 60 fail
+  which banner > /dev/null && banner -w 60 fail
   echo
   echo
   echo 'FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!FAIL!'
