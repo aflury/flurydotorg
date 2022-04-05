@@ -6,7 +6,8 @@ export CLOUDFLARE_EMAIL=someone+cloudflare@example.net
 export CLOUDFLARE_API_TOKEN=asdasdda
 export DOMAIN=example.net
 export SYMBOLIC_NAME=example-net
-export DMARC_CNAME=nonexistent.example.net
 export RESUME_FILE=/Users/user/Documents/resume.pdf
 export LINKEDIN_PROFILE=obedient-worker-123
 export PHONE=1-650-555-1234
+export DMARC_RECORD="v=DMARC1; p=none"
+export SPF_RECORD="v=spf1 include:spf.protection.outlook.com -all"

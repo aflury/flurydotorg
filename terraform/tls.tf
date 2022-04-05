@@ -10,7 +10,6 @@ resource "aws_acm_certificate" "flurydotorg" {
     "resume.${var.domain}",
     "source.${var.domain}",
     "text.${var.domain}",
-    "www.${var.domain}",
     "xn--rsum-bpad.${var.domain}"
   ]
 }

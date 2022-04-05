@@ -150,7 +150,7 @@ resource "cloudflare_record" "selector2" {
 resource "cloudflare_record" "spf" {
   zone_id = cloudflare_zone.flurydotorg.id
   name    = "${var.domain}."
-  value   = "v=spf1 exists:%\\{i\\}._i.%\\{d\\}._d.espf.agari.com include:%\\{d\\}.01.spf-protect.agari.com -all"
+  value   = var.spf_record
   type    = "TXT"
   proxied = false
   ttl     = 300
@@ -160,8 +160,8 @@ resource "cloudflare_record" "spf" {
 resource "cloudflare_record" "dmarc" {
   zone_id = cloudflare_zone.flurydotorg.id
   name    = "_dmarc"
-  value   = var.dmarc_cname
-  type    = "CNAME"
+  value   = var.dmarc_record
+  type    = "TXT"
   proxied = false
   ttl     = 300
 }

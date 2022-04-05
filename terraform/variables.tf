@@ -36,8 +36,12 @@ variable "domain" {
   description = "Domain name for which to publish"
 }
 
-variable "dmarc_cname" {
-  description = "Value of DMARC CNAME DNS record"
+variable "dmarc_record" {
+  description = "Value of DMARC TXT DNS record"
+}
+
+variable "spf_record" {
+  description = "Value of SPF TXT DNS record"
 }
 
 variable "symbolic_name" {

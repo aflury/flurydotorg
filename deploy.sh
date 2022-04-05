@@ -62,7 +62,8 @@ domain=$1
 export TF_VAR_cloudflare_api_token=$CLOUDFLARE_API_TOKEN
 export TF_VAR_cloudflare_email=$CLOUDFLARE_EMAIL
 export TF_VAR_domain=$DOMAIN
-export TF_VAR_dmarc_cname=$DMARC_CNAME
+export TF_VAR_dmarc_record=$DMARC_RECORD
+export TF_VAR_spf_record=$SPF_RECORD
 export TF_VAR_symbolic_name=$SYMBOLIC_NAME
 export TF_VAR_aws_account_id=`aws iam get-user --output text | awk '{print $2}' | awk -F: '{print $5}'`
 
