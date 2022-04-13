@@ -113,6 +113,7 @@ resume_base='`basename $RESUME_FILE`' \
 domain='$DOMAIN' \
 symbolic_name='$SYMBOLIC_NAME' \
 phone='$PHONE' \
+email='$EMAIL' \
 profile_photo='$PROFILE_PHOTO' \
 profile_photo_base='$PROFILE_PHOTO_BASE' \
 full_name='$FULL_NAME'\" \

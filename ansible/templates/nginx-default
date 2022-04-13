@@ -46,10 +46,9 @@ server {
         listen [::]:80;
         server_name call.{{domain}};
         root /flurydotorg/htdocs;
-        error_page 301 /call-301.html;
         error_page 404 /404.html;
         location = / {
-                return 301 "tel:{{phone}}";
+		index "tel:{{phone}}";
         }
         location ~* tel: {
                 default_type text/html;
@@ -61,10 +60,9 @@ server {
         listen [::]:80;
         server_name text.{{domain}};
         root /flurydotorg/htdocs;
-        error_page 301 /text-301.html;
         error_page 404 /404.html;
         location = / {
-                return 301 "sms:{{phone}}";
+		index "sms:{{phone}}";
         }
         location ~* sms: {
                 default_type text/html;

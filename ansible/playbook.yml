@@ -96,13 +96,11 @@
         group=root
       with_items:
         - 404.html
-        - call-301.html
         - index.html
         - linkedin-301.html
         - message-301.html
         - robots.txt
         - source-301.html
-        - text-301.html
 
     - name: "create sms: content"
       template:
