@@ -1,0 +1,12 @@
+<html>
+  <head>
+    <meta property="og:url"         content="sms:{{phone}}"/>
+    <meta property="og:title"       content="Text {{full_name}}'s phone"/>
+    <meta property="og:description" content="Text {{phone}} using your messaging app"/>
+    <meta property="og:image"       content="https://text.{{domain}}/{{profile_photo_base}}"/>
+    <meta property="og:type"        content="profile"/>
+  </head>
+  <body>
+    <a href="sms:{{phone}}">Click</a> to text <b>{{full_name}}</b>'s phone (<b>{{phone}}<b>) using your messaging app.</body></html>
+  </body>
+</html>

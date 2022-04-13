@@ -51,6 +51,9 @@ server {
         location = / {
                 return 301 "tel:{{phone}}";
         }
+        location ~* tel: {
+                default_type text/html;
+        }
 }
 
 server {
@@ -62,6 +65,9 @@ server {
         error_page 404 /404.html;
         location = / {
                 return 301 "sms:{{phone}}";
+        }
+        location ~* sms: {
+                default_type text/html;
         }
 }
 

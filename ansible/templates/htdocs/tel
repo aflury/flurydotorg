@@ -1,0 +1,12 @@
+<html>
+  <head>
+    <meta property="og:url"         content="tel:{{phone}}"/>
+    <meta property="og:title"       content="Call {{full_name}}'s phone"/>
+    <meta property="og:description" content="Call {{phone}} using your phone dialer app"/>
+    <meta property="og:image"       content="https://call.{{domain}}/{{profile_photo_base}}"/>
+    <meta property="og:type"        content="profile"/>
+  </head>
+  <body>
+    <a href="tel:{{phone}}">Click</a> to call <b>{{full_name}}</b>'s phone (<b>{{phone}}<b>) using your phone dialer app.</body></html>
+  </body>
+</html>

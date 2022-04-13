@@ -104,6 +104,30 @@
         - source-301.html
         - text-301.html
 
+    - name: "create sms: content"
+      template:
+        src=htdocs/sms
+        dest=/flurydotorg/htdocs/sms:{{phone}}
+        mode=0644
+        owner=root
+        group=root
+
+    - name: "create tel: content"
+      template:
+        src=htdocs/tel
+        dest=/flurydotorg/htdocs/tel:{{phone}}
+        mode=0644
+        owner=root
+        group=root
+
+    - name: "create profile photo"
+      copy:
+        src={{profile_photo}}
+        dest=/flurydotorg/htdocs/{{profile_photo_base}}
+        mode=0644
+        owner=root
+        group=root
+
     - name: "publish resume"
       copy:
         src={{resume_file}}

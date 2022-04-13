@@ -57,6 +57,7 @@ then
   echo "File $RESUME_FILE doesn't exist!"
   exit 1
 fi
+PROFILE_PHOTO_BASE=`basename $PROFILE_PHOTO`
 domain=$1
 
 export TF_VAR_cloudflare_api_token=$CLOUDFLARE_API_TOKEN
@@ -111,7 +112,10 @@ resume_file='$RESUME_FILE' \
 resume_base='`basename $RESUME_FILE`' \
 domain='$DOMAIN' \
 symbolic_name='$SYMBOLIC_NAME' \
-phone='$PHONE'\" \
+phone='$PHONE' \
+profile_photo='$PROFILE_PHOTO' \
+profile_photo_base='$PROFILE_PHOTO_BASE' \
+full_name='$FULL_NAME'\" \
   ansible/playbook.yml \
 "
 
