@@ -1,4 +1,10 @@
 terraform {
+  cloud {
+    workspaces {
+      name = "flurydotorg"
+    }
+  }
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -9,12 +15,7 @@ terraform {
       version = "~> 3.0"
     }
   }
-  required_version = "~> 1.1.0"
-
-  backend "s3" {
-    # bucket is set by `terraform init`.
-    key = "terraform.tfstate"
-  }
+  required_version = "~> 1.2.0"
 }
 
 provider "cloudflare" {

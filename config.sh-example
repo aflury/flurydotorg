@@ -13,3 +13,4 @@ export FULL_NAME="Mickey Mouse"
 export DMARC_RECORD="v=DMARC1; p=none"
 export SPF_RECORD="v=spf1 include:spf.protection.outlook.com -all"
 export FULL_NAME="Mickey Mouse"
+export TF_CLOUD_ORGANIZATION=your-terraform-cloud-username-or-org
