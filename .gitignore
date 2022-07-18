@@ -3,3 +3,4 @@ config.sh
 .idea
 .terraform
 .terraform.lock.hcl
+.infracost

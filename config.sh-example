@@ -1,9 +1,6 @@
-# Set these two or `AWS_PROFILE` (these will take precedence).
-# export AWS_ACCESS_KEY_ID=foo
-# export AWS_SECRET_ACCESS_KEY=bar
-export AWS_PROFILE=myawsprofile
-export CLOUDFLARE_EMAIL=someone+cloudflare@example.net
+export CLOUDFLARE_ACCOUNT_ID=100101010101111012
 export CLOUDFLARE_API_TOKEN=asdasdda
+export CLOUDFLARE_EMAIL=someone+cloudflare@example.net
 export DOMAIN=example.net
 export SYMBOLIC_NAME=example-net
 export RESUME_FILE=/Users/user/Documents/resume.pdf
@@ -14,3 +11,5 @@ export DMARC_RECORD="v=DMARC1; p=none"
 export SPF_RECORD="v=spf1 include:spf.protection.outlook.com -all"
 export FULL_NAME="Mickey Mouse"
 export TF_CLOUD_ORGANIZATION=your-terraform-cloud-username-or-org
+export DD_API_KEY=7dd...
+export DD_APP_KEY=f86aab..

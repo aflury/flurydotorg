@@ -2,14 +2,7 @@ resource "cloudflare_zone" "flurydotorg" {
   zone = var.domain
 }
 
-resource "cloudflare_record" "flurydotorg" {
-  zone_id = cloudflare_zone.flurydotorg.id
-  name    = "${var.domain}."
-  value   = aws_lb.flurydotorg.dns_name
-  type    = "CNAME"
-  proxied = true
-  ttl     = 1
-}
+
 
 resource "cloudflare_record" "www" {
   zone_id = cloudflare_zone.flurydotorg.id
@@ -101,15 +94,6 @@ resource "cloudflare_record" "text" {
   ttl     = 1
 }
 
-resource "cloudflare_record" "address" {
-  zone_id = cloudflare_zone.flurydotorg.id
-  name    = "ec2"
-  value   = aws_eip.flurydotorg.public_ip
-  type    = "A"
-  proxied = false
-  ttl     = 300
-}
-
 resource "cloudflare_record" "mx" {
   zone_id  = cloudflare_zone.flurydotorg.id
   name     = "${var.domain}."
@@ -164,20 +148,4 @@ resource "cloudflare_record" "dmarc" {
   type    = "TXT"
   proxied = false
   ttl     = 300
-}
-
-resource "cloudflare_record" "validate_tls" {
-  for_each = {
-    for dvo in aws_acm_certificate.flurydotorg.domain_validation_options : dvo.domain_name => {
-      name   = dvo.resource_record_name
-      record = dvo.resource_record_value
-      type   = dvo.resource_record_type
-    }
-  }
-  zone_id         = cloudflare_zone.flurydotorg.id
-  allow_overwrite = true
-  name            = each.value.name
-  value           = trim(each.value.record, ".")
-  ttl             = 60
-  type            = each.value.type
 }

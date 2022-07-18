@@ -3,8 +3,8 @@
 Makes a flury.org. Just a personal domain with a little static content and some redirects and DNS stuff.
 
 This is a public repo because it's hosting files that say I'm good at computers and security, and maybe this
-will test that assertion. It *probably* looks more sensitive than it is though. It isn't super useful to other people as-is, but it could
-potentially help if you're trying to use terraform/ansible to set up personal domain hosting.
+will test that assertion. It *probably* looks more sensitive than it is though. It isn't super useful to other people as-is,
+but it could be useful as an example of setting up basic hosting with Terraform+Cloudflare.
 
 ![network diagram](flurydotorg.drawio.png)
 
@@ -12,20 +12,17 @@ potentially help if you're trying to use terraform/ansible to set up personal do
 ## Repo Layout
 |path|function|
 |------|--------|
-|ansible|configuration & templated htdocs static content|
 |deploy.sh|deploys infrastructure/content by calling terraform and ansible|
 |config.sh|configuration, including credentials for AWS+Cloudflare, example in `config.sh-example`|
-|ssh-key.pub|ssh public key to access ec2 instances|
-|terraform/ssh-key|ssh *private* key (doesn't exist in repo...create a new key pair if starting from scratch)|
 |terraform|infrastructure spinup (AWS+Cloudflare)|
 
 ## Prerequisites
 
-- terraform 1.1.x: https://www.terraform.io/downloads.html or via homebrew etc.
-- ansible-playbook: `pip install ansible`.
-- jq: `brew install jq`
-- ssh private key.
+- terraform 1.2.x: https://www.terraform.io/downloads.html or via homebrew etc.
 - `config.sh`; create based off example file.
+- Microsoft O365 account, if you want email.
+- Cloudflare account (email + account id + API token); free tier should work.
+- Datadog account (API key + application key); free tier should work.
 
 ## Deployment
 
@@ -46,7 +43,7 @@ terraform import aws_s3_bucket.flurydotorg-tfstate $SYMBOLIC_NAME-tfstate
 
 ### Deploying
 
-Running the `deploy.sh` script will call terraform and ansible to create any AWS/cloudflare
+Running the `deploy.sh` script will call terraform and ansible to create any Cloudflare/etc.
 infrastructure necessary and push your data.
 
 ```bash
@@ -58,7 +55,7 @@ PLAY RECAP *********************************************************************
 
 <details>
   <summary>
-    Full deploy output... :sunglasses:
+    Full deploy output... :sunglasses: (this is getting stale)
   </summary>
 
 ```

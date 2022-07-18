@@ -1,35 +1,13 @@
-variable "aws_region" {
-  description = "AWS region"
-  default     = "us-west-2"
-}
-
-variable "aws_account_id" {
-  description = "AWS account ID"
-}
-
-variable "flurydotorg_vpc" {
-  description = "VPC we want to run in"
-  default     = "vpc-c24344a4"
-}
-
-variable "flurydotorg_subnet_1" {
-  description = "first (primary) subnet"
-  default     = "subnet-23602f45"
-}
-
-# This subnet only exists because the ALB wants two endpoints.
-# We don't care about redundancy right now so it's only actually running on the primary.
-variable "flurydotorg_subnet_2" {
-  description = "second (down) subnet"
-  default     = "subnet-cb127d83"
-}
-
 variable "cloudflare_email" {
   description = "Cloudflare account email address"
 }
 
 variable "cloudflare_api_token" {
   description = "Cloudflare API token"
+}
+
+variable "cloudflare_account_id" {
+  description = "Cloudflare account ID"
 }
 
 variable "domain" {
@@ -46,4 +24,36 @@ variable "spf_record" {
 
 variable "symbolic_name" {
   description = "Symbolic name of Microsoft Office365 organization. e.g. `flury-org`"
+}
+
+variable "linkedin_profile" {
+  description = "LinkedIn profile name (used to build profile URL)"
+}
+
+variable "email" {
+  description = "Email address"
+}
+
+variable "phone" {
+  description = "Phone#"
+}
+
+variable "profile_photo_base" {
+  description = "Profile photo base filename"
+}
+
+variable "resume_file_base" {
+  description = "Resume base (non-directory-part) filename"
+}
+
+variable "full_name" {
+  description = "Full name"
+}
+
+variable "dd_api_key" {
+  description = "Datadog API key"
+}
+
+variable "dd_app_key" {
+  description = "Datadog application key"
 }

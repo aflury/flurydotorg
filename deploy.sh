@@ -10,12 +10,6 @@ set -e
 
 
 # Check dependencies.
-if ! which jq > /dev/null
-then
-  echo "I need jq (json query) to run."
-  echo "If you're on MacOS, try installing jq from homebrew: brew install jq"
-  exit 1
-fi
 if echo "$BASH_VERSION" | grep -q '^[0-3]\.'
 then
   echo "I need a bash version that supports associative arrays (>= 4.x)"
@@ -58,15 +52,28 @@ then
   exit 1
 fi
 PROFILE_PHOTO_BASE=`basename $PROFILE_PHOTO`
+RESUME_FILE_BASE=`basename $RESUME_FILE`
 domain=$1
 
+mkdir -p terraform/tmp
+cp "$PROFILE_PHOTO" "$RESUME_FILE" terraform/tmp/
+# CAREFUL
+trap "rm -rf \"`pwd`/terraform/tmp\"" EXIT
 export TF_VAR_cloudflare_api_token=$CLOUDFLARE_API_TOKEN
+export TF_VAR_cloudflare_account_id=$CLOUDFLARE_ACCOUNT_ID
 export TF_VAR_cloudflare_email=$CLOUDFLARE_EMAIL
 export TF_VAR_domain=$DOMAIN
 export TF_VAR_dmarc_record=$DMARC_RECORD
 export TF_VAR_spf_record=$SPF_RECORD
 export TF_VAR_symbolic_name=$SYMBOLIC_NAME
-export TF_VAR_aws_account_id=`aws iam get-user --output text | awk '{print $2}' | awk -F: '{print $5}'`
+export TF_VAR_linkedin_profile=$LINKEDIN_PROFILE
+export TF_VAR_email=$EMAIL
+export TF_VAR_phone=$PHONE
+export TF_VAR_profile_photo_base=$PROFILE_PHOTO_BASE
+export TF_VAR_resume_file_base=$RESUME_FILE_BASE
+export TF_VAR_full_name=$FULL_NAME
+export TF_VAR_dd_api_key=$DD_API_KEY
+export TF_VAR_dd_app_key=$DD_APP_KEY
 
 cd terraform
 terraform="terraform apply"
@@ -79,76 +86,6 @@ echo '**'
 echo '**************************************************'
 echo
 $terraform
-# We only need the public IP address to avoid waiting for ec2.$domain's address record to update.
-jq_query='.values.root_module.resources[] | select(.address=="aws_eip.flurydotorg").values.public_ip'
-ec2_ip=`terraform show -json | jq "$jq_query" | sed -e 's/"//g'`
-cd ..
-
-SSH="ssh -o StrictHostKeyChecking=no -i `pwd`/ssh-key ubuntu@$ec2_ip"
-while ! $SSH sudo apt-get update
-do
-  echo "Waiting for $ec2_ip to come up and successfully run 'apt-get update'..."
-  sleep 10
-done
-
-# Dynamically create temporary ansible hosts file and run playbook. Remove at exit.
-hosts=`mktemp`
-function cleanup_hosts {
-  rm $hosts
-}
-trap cleanup_hosts EXIT
-
-echo '[servers]'  > $hosts
-echo $ec2_ip     >> $hosts
-
-playbook="ansible-playbook \
- -b \
- --key-file `pwd`/ssh-key \
- -u ubuntu \
- -i $hosts \
- --extra-vars \"\
-linkedin_profile='$LINKEDIN_PROFILE' \
-resume_file='$RESUME_FILE' \
-resume_base='`basename $RESUME_FILE`' \
-domain='$DOMAIN' \
-symbolic_name='$SYMBOLIC_NAME' \
-phone='$PHONE' \
-email='$EMAIL' \
-profile_photo='$PROFILE_PHOTO' \
-profile_photo_base='$PROFILE_PHOTO_BASE' \
-full_name='$FULL_NAME'\" \
-  ansible/playbook.yml \
-"
-
-if [ "$force" != 1 ]
-  then
-  echo
-  echo '**************************************************'
-  echo '**'
-  echo '**  Running ansible-playbook check'
-  echo '**'
-  echo '**************************************************'
-  echo
-  bash -c "$playbook -CD"
-  echo
-  echo
-  read -p "Does everything look OK? yes/no " yesno
-  if ! echo "$yesno" | grep -Eiq '^y($|es)$'
-  then
-    echo 'Abort!'
-    exit 1
-  fi
-fi
-
-echo
-echo '**************************************************'
-echo '**'
-echo '**  Running ansible-playbook'
-echo '**'
-echo '**************************************************'
-echo
-bash -cx "$playbook"
-
 
 echo
 echo '**************************************************'
@@ -165,9 +102,9 @@ echo 'Done waiting...'
 failed=0
 
 
-linkedin_test="grep -q https://www.linkedin.com/.*redirected"
+linkedin_test="grep -q Redirecting.*https://www.linkedin.com/"
 pdf_test="file - | grep -q 'PDF document'"
-github_test="grep -q https://github.com/aflury/flurydotorg"
+github_test="grep -q Redirecting.*https://github.com/aflury/flurydotorg"
 call_test="grep -q tel:[0-9\+]"
 text_test="grep -q sms:[0-9\+]"
 
