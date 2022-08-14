@@ -20,13 +20,17 @@ const pathMap = new Map ([
 	['/robots.txt',            'files/robots.txt'],
 ]);
 
-// Domains that should only redirect - not serving any content from here.
-const redirectDomainMap = new Map([
+// Domains (+optional paths) that should only redirect - not serving any content from here.
+const redirectMap = new Map([
 	['linkedin.${domain}', 'https://www.linkedin.com/in/${linkedin_profile}'],
 	['chat.${domain}',     linkedinChatUrl],
 	['message.${domain}',  linkedinChatUrl],
 	['source.${domain}',   'https://github.com/aflury/flurydotorg'],
 ]);
+
+
+// Redirect every request to this domain to the url encoded in the path.
+const redirectDomain = 'redirect.${domain}';
 
 // Index (content) to show for each domain.
 const indexMap = new Map([
@@ -122,8 +126,9 @@ async function handleRequest(request) {
 	const host = request.headers.get('Host').split(':')[0];
 	const url = new URL(request.url);
 	var response = null;
+	const hostAndPath = host + url.pathname;
 
-	// Handle specific pathnames first.
+	// Handle specific pathnames.
 	// Don't allow empty pathname to sneak in, or it'll clobber other requests.
 	if (url.pathname != '/' && pathMap.has(url.pathname)) {
 		const path = pathMap.get(url.pathname);
@@ -131,8 +136,17 @@ async function handleRequest(request) {
 		response = new Response(base64_decode(contents), getHeaders(path));
 	}
 	// Redirect for any redirect-only subdomain.
-	else if (redirectDomainMap.has(host)) {
-		var redirectUrl = new URL(redirectDomainMap.get(host));
+	else if (host == redirectDomain || redirectMap.has(host) || redirectMap.has(hostAndPath)) {
+		if (host == redirectDomain) {
+			var quotedUrl = url.pathname.substring(1);
+			try {
+				var redirectUrl = new URL(decodeURIComponent(quotedUrl));
+			} catch (e) {
+				return new Response("URL '" + quotedUrl + "' failed to parse", {status: 500});
+			}
+		} else {
+			var redirectUrl = new URL(redirectMap.get(host) || redirectMap.get(hostAndPath));
+		}
 		response = new Response(
 			'<html><body>' +
 			'Redirecting to <a href="' + redirectUrl.href + '">' + redirectUrl.href + '</a>' +

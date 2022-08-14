@@ -67,6 +67,15 @@ resource "cloudflare_record" "message" {
   ttl     = 1
 }
 
+resource "cloudflare_record" "redirect" {
+  zone_id = cloudflare_zone.flurydotorg.id
+  name    = "redirect"
+  value   = var.domain
+  type    = "CNAME"
+  proxied = true
+  ttl     = 1
+}
+
 resource "cloudflare_record" "resume" {
   zone_id = cloudflare_zone.flurydotorg.id
   name    = "resume"
