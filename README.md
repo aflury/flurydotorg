@@ -55,7 +55,7 @@ PLAY RECAP *********************************************************************
 
 <details>
   <summary>
-    Full deploy output... :sunglasses: (this is getting stale)
+    Full deploy output... :sunglasses: (this is getting stale - even my résumé has tech debt!)
   </summary>
 
 ```
