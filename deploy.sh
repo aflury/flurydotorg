@@ -74,6 +74,7 @@ export TF_VAR_resume_file_base=$RESUME_FILE_BASE
 export TF_VAR_full_name=$FULL_NAME
 export TF_VAR_dd_api_key=$DD_API_KEY
 export TF_VAR_dd_app_key=$DD_APP_KEY
+export TF_VAR_calendly_profile=$CALENDLY_PROFILE
 
 cd terraform
 terraform="terraform apply"

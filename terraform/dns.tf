@@ -103,6 +103,15 @@ resource "cloudflare_record" "text" {
   ttl     = 1
 }
 
+resource "cloudflare_record" "meet" {
+  zone_id = cloudflare_zone.flurydotorg.id
+  name    = "meet"
+  value   = var.domain
+  type    = "CNAME"
+  proxied = true
+  ttl     = 1
+}
+
 resource "cloudflare_record" "mx" {
   zone_id  = cloudflare_zone.flurydotorg.id
   name     = "${var.domain}."

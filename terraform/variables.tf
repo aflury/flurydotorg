@@ -57,3 +57,7 @@ variable "dd_api_key" {
 variable "dd_app_key" {
   description = "Datadog application key"
 }
+
+variable "calendly_profile" {
+  description = "Calendly profile name, to be used for https://calendly.com/<profile-name>"
+}

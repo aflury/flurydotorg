@@ -24,6 +24,7 @@ const pathMap = new Map ([
 const redirectMap = new Map([
 	['linkedin.${domain}', 'https://www.linkedin.com/in/${linkedin_profile}'],
 	['chat.${domain}',     linkedinChatUrl],
+	['meet.${domain}',     'https://calendly.com/${calendly_profile}'],
 	['message.${domain}',  linkedinChatUrl],
 	['source.${domain}',   'https://github.com/aflury/flurydotorg'],
 ]);

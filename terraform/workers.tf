@@ -5,6 +5,7 @@ resource "cloudflare_workers_kv_namespace" "flurydotorg" {
 resource "cloudflare_worker_script" "flurydotorg" {
     name    = "flurydotorg"
     content = templatefile("templates/index.js", {
+        calendly_profile   = var.calendly_profile
         dd_api_key         = var.dd_api_key
         dd_app_key         = var.dd_app_key
         domain             = var.domain
@@ -66,6 +67,7 @@ resource "cloudflare_workers_kv" "templates" {
     for_each     = fileset(path.module, "templates/**")
     key          = each.key
     value        = templatefile(each.key, {
+        calendly_profile   = var.calendly_profile
         dd_api_key         = var.dd_api_key
         dd_app_key         = var.dd_app_key
         domain             = var.domain
