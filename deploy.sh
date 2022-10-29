@@ -2,12 +2,11 @@
 #
 # Deploy the stuff!
 #
-# Wrapper around `terraform apply` and `ansible-playbook`.
+# Wrapper around `terraform apply`.
 #
 
 # Fail on errors.
 set -e
-
 
 # Check dependencies.
 if echo "$BASH_VERSION" | grep -q '^[0-3]\.'
